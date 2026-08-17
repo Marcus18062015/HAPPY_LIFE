@@ -136,6 +136,19 @@ db.exec(`
     active INTEGER NOT NULL DEFAULT 1,
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
   );
+
+  CREATE TABLE IF NOT EXISTS abonnements_proprietaires (
+    id TEXT PRIMARY KEY,
+    owner_id TEXT NOT NULL,
+    duree_mois INTEGER NOT NULL,
+    montant INTEGER NOT NULL,
+    moyen_paiement TEXT NOT NULL,
+    reference_paiement TEXT NOT NULL DEFAULT '',
+    date_debut TEXT NOT NULL,
+    date_fin TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    FOREIGN KEY (owner_id) REFERENCES users(id)
+  );
 `);
 
 // Les visuels "photo-style" de démonstration sont déjà générés une fois pour
@@ -260,6 +273,29 @@ function insertPromotion({
     prixPromo ?? null,
     dateDebut ?? null,
     dateFin ?? null
+  );
+  return id;
+}
+
+function insertAbonnement({ ownerId, dureeMois, montant, moyenPaiement, reference, joursEcoules = 0 }) {
+  const id = randomUUID();
+  // joursEcoules > 0 permet de simuler un abonnement souscrit il y a
+  // quelques jours (utile pour la démo du bandeau de rappel avant échéance).
+  const dateDebut = new Date(Date.now() - joursEcoules * 24 * 60 * 60 * 1000);
+  const dateFin = new Date(dateDebut.getTime() + dureeMois * 30 * 24 * 60 * 60 * 1000);
+  db.prepare(
+    `INSERT INTO abonnements_proprietaires
+       (id, owner_id, duree_mois, montant, moyen_paiement, reference_paiement, date_debut, date_fin)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+  ).run(
+    id,
+    ownerId,
+    dureeMois,
+    montant,
+    moyenPaiement,
+    reference ?? "",
+    dateDebut.toISOString(),
+    dateFin.toISOString()
   );
   return id;
 }
@@ -468,6 +504,38 @@ insertFiche({
 db.exec(
   `UPDATE fiches SET motif_refus = 'Photos insuffisantes : merci d''ajouter au moins 3 photos et de préciser le quartier.' WHERE titre = 'Appartement meublé Centre-ville'`
 );
+
+// ---- Abonnements propriétaires de démonstration ----
+// Sans abonnement valide, les fiches d'un propriétaire sont masquées du
+// public (demande explicite de l'utilisateur) : on souscrit donc les 3
+// propriétaires de démo, avec des situations variées pour illustrer le
+// bandeau de rappel avant échéance dans /proprietaire/abonnement.
+insertAbonnement({
+  ownerId: owner1,
+  dureeMois: 12,
+  montant: 108000,
+  moyenPaiement: "Mobile Money",
+  reference: "MM-DEMO-0001",
+  joursEcoules: 20,
+});
+insertAbonnement({
+  ownerId: owner2,
+  dureeMois: 1,
+  montant: 10000,
+  moyenPaiement: "Mobile Money",
+  reference: "MM-DEMO-0002",
+  // Souscrit il y a 26 jours sur 1 mois (30 jours) : n'expire que dans
+  // quelques jours, pour montrer le bandeau de rappel en démo.
+  joursEcoules: 26,
+});
+insertAbonnement({
+  ownerId: owner3,
+  dureeMois: 3,
+  montant: 28500,
+  moyenPaiement: "Virement bancaire",
+  reference: "VIR-DEMO-0003",
+  joursEcoules: 10,
+});
 
 // ---- Demandes de démonstration ----
 const fichesValidees = db
