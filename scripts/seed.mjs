@@ -130,6 +130,7 @@ db.exec(`
     id TEXT PRIMARY KEY,
     titre TEXT NOT NULL,
     annonceur TEXT NOT NULL DEFAULT '',
+    description TEXT NOT NULL DEFAULT '',
     image TEXT,
     lien TEXT,
     active INTEGER NOT NULL DEFAULT 1,
@@ -263,12 +264,12 @@ function insertPromotion({
   return id;
 }
 
-function insertPublicite({ titre, annonceur, image, lien }) {
+function insertPublicite({ titre, annonceur, description, image, lien }) {
   const id = randomUUID();
   db.prepare(
-    `INSERT INTO publicites (id, titre, annonceur, image, lien, active)
-     VALUES (?, ?, ?, ?, ?, 1)`
-  ).run(id, titre, annonceur ?? "", image ?? null, lien ?? null);
+    `INSERT INTO publicites (id, titre, annonceur, description, image, lien, active)
+     VALUES (?, ?, ?, ?, ?, ?, 1)`
+  ).run(id, titre, annonceur ?? "", description ?? "", image ?? null, lien ?? null);
   return id;
 }
 
@@ -577,18 +578,24 @@ insertPromotion({
 insertPublicite({
   titre: "Piscine à débordement avec vue panoramique sur l'océan",
   annonceur: "Villa de prestige",
+  description:
+    "Une grande piscine miroir s'étend le long de la terrasse et reflète le ciel teinté de rose, de violet et de bleu au crépuscule. Plusieurs bains de soleil et des plantes tropicales créent une ambiance d'oasis privée, dans une architecture moderne aux baies vitrées toute hauteur, structures en bois et éclairage d'ambiance encastré. La terrasse donne directement sur l'océan et un littoral montagneux en arrière-plan.",
   image: images.publicite[0],
   lien: "/recherche",
 });
 insertPublicite({
   titre: "Résidence La Salinière — piscine, bassin enfants et bar en paillote",
   annonceur: "500 m après l'hôtel Orchidée",
+  description:
+    "Une grande piscine extérieure bordée de bains de soleil et de parasols, avec un bassin dédié aux enfants accolé au bassin principal. Un espace bar-restaurant à l'ombre, sous une terrasse couverte en paillote, complète un cadre verdoyant entouré d'arbres et de végétation tropicale. Le complexe La Salinière se trouve à 500 mètres après l'entrée de l'hôtel Orchidée.",
   image: images.publicite[1],
   lien: "/recherche",
 });
 insertPublicite({
   titre: "Votre publicité ici",
   annonceur: "Happy Life",
+  description:
+    "Cet emplacement est réservé à votre annonce : mettez en avant votre piscine, votre résidence ou votre offre spéciale auprès de tous les visiteurs de Happy Life.",
   image: images.piscine[0],
   lien: "/proprietaire/inscription",
 });

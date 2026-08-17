@@ -44,6 +44,12 @@ export default async function AdminPublicitesPage() {
             placeholder="Chemin de l'image (ex : /seed/piscine-1.jpg)"
             className="rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-brand-teal sm:col-span-2"
           />
+          <textarea
+            name="description"
+            rows={3}
+            placeholder="Description détaillée, affichée quand un visiteur clique sur la publicité"
+            className="rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-brand-teal sm:col-span-2"
+          />
           <button
             type="submit"
             className="rounded-xl brand-gradient px-4 py-2.5 text-sm font-semibold text-white hover:opacity-90 sm:col-span-2"
@@ -68,6 +74,9 @@ export default async function AdminPublicitesPage() {
                     {p.annonceur ? `${p.annonceur}` : "Annonceur non précisé"}
                     {p.lien ? ` · ${p.lien}` : ""}
                   </p>
+                  {p.description && (
+                    <p className="mt-1 max-w-xl text-sm text-slate-400">{p.description}</p>
+                  )}
                 </div>
                 <div className="flex flex-col items-end gap-2">
                   <StatusBadge status={p.active ? "ACTIF" : "INACTIVE"} />
