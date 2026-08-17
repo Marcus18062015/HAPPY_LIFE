@@ -72,6 +72,10 @@ export function setUserStatut(id: string, statut: "EN_ATTENTE" | "ACTIF" | "SUSP
   db.prepare(`UPDATE users SET statut = ? WHERE id = ?`).run(statut, id);
 }
 
+export function setUserPassword(id: string, passwordHash: string) {
+  db.prepare(`UPDATE users SET password_hash = ? WHERE id = ?`).run(passwordHash, id);
+}
+
 export function countFichesForOwner(ownerId: string): number {
   const row = db
     .prepare(`SELECT COUNT(*) as n FROM fiches WHERE owner_id = ?`)

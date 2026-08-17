@@ -12,6 +12,7 @@ const LINKS = [
   { href: "/admin/evenements", label: "Événements" },
   { href: "/admin/publicites", label: "Publicités" },
   { href: "/admin/abonnes", label: "Abonnés" },
+  { href: "/admin/mot-de-passe", label: "Mot de passe" },
 ];
 
 export default async function AdminDashboardLayout({

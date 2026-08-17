@@ -9,9 +9,11 @@ import {
   verifyPassword,
   getSession,
 } from "@/lib/auth";
-import { createUser, getUserByEmail } from "@/lib/data";
+import { createUser, getUserByEmail, getUserById, setUserPassword } from "@/lib/data";
 
 export type FormState = { error?: string } | undefined;
+
+export type PasswordFormState = { error?: string; success?: boolean } | undefined;
 
 export async function loginProprietaireAction(
   _prev: FormState,
@@ -97,6 +99,42 @@ export async function logoutAction() {
   await clearSessionCookie();
   revalidatePath("/");
   redirect("/");
+}
+
+export async function changePasswordAction(
+  _prev: PasswordFormState,
+  formData: FormData
+): Promise<PasswordFormState> {
+  const session = await getSession();
+  if (!session) {
+    return { error: "Session expirée, merci de vous reconnecter." };
+  }
+
+  const motDePasseActuel = String(formData.get("motDePasseActuel") || "");
+  const nouveauMotDePasse = String(formData.get("nouveauMotDePasse") || "");
+  const confirmation = String(formData.get("confirmation") || "");
+
+  if (nouveauMotDePasse.length < 6) {
+    return { error: "Le nouveau mot de passe doit contenir au moins 6 caractères." };
+  }
+  if (nouveauMotDePasse !== confirmation) {
+    return { error: "La confirmation ne correspond pas au nouveau mot de passe." };
+  }
+
+  const user = getUserById(session.sub);
+  if (!user) {
+    return { error: "Compte introuvable." };
+  }
+
+  const ok = await verifyPassword(motDePasseActuel, user.password_hash);
+  if (!ok) {
+    return { error: "Le mot de passe actuel est incorrect." };
+  }
+
+  const passwordHash = await hashPassword(nouveauMotDePasse);
+  setUserPassword(user.id, passwordHash);
+
+  return { success: true };
 }
 
 export async function requireSession(role?: "ADMIN" | "PROPRIETAIRE") {
