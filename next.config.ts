@@ -9,6 +9,14 @@ const nextConfig: NextConfig = {
     contentDispositionType: "attachment",
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
+  experimental: {
+    // La base est un fichier SQLite unique (node:sqlite). En build, Next
+    // lance plusieurs workers en parallèle pour collecter les données de
+    // chaque page, et plusieurs process qui ouvrent le même fichier en même
+    // temps déclenchent une erreur "database is locked". On force un seul
+    // worker pour cette étape : le build est un peu plus lent, mais fiable.
+    cpus: 1,
+  },
 };
 
 export default nextConfig;
