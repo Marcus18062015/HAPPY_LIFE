@@ -126,6 +126,27 @@ export interface EvenementRecord {
   created_at: string;
 }
 
+export interface AbonnementProprietaireRecord {
+  id: string;
+  owner_id: string;
+  duree_mois: number;
+  montant: number;
+  moyen_paiement: string;
+  reference_paiement: string;
+  date_debut: string;
+  date_fin: string;
+  created_at: string;
+}
+
+// État calculé de l'abonnement d'un propriétaire (dernière période
+// souscrite, ou absence d'abonnement). Utilisé pour le bandeau de rappel et
+// l'affichage admin.
+export interface AbonnementStatut {
+  abonnement: AbonnementProprietaireRecord | null;
+  valide: boolean;
+  joursRestants: number; // négatif si expiré
+}
+
 export interface Fiche extends Omit<FicheRecord, "equipements" | "photos" | "active"> {
   equipements: string[];
   photos: string[];

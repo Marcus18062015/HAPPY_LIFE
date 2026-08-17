@@ -17,7 +17,10 @@ import type {
   OwnerPublicProfile,
   AbonneRecord,
   PubliciteRecord,
+  AbonnementProprietaireRecord,
+  AbonnementStatut,
 } from "./types";
+import { calculerMontantAbonnement, ABONNEMENT_JOURS_PAR_MOIS } from "./constants";
 
 // ---------- Users ----------
 
@@ -221,6 +224,12 @@ export function listAllFiches(): Fiche[] {
   return rows.map(toFiche);
 }
 
+// Sans abonnement propriétaire valide, ses fiches n'apparaissent pas côté
+// public (demande explicite de l'utilisateur) — voir
+// listOwnerIdsAvecAbonnementValide(). Réutilisée dans toutes les requêtes
+// publiques ci-dessous.
+const ABONNEMENT_VALIDE_SQL = `owner_id IN (SELECT owner_id FROM abonnements_proprietaires WHERE date_fin >= datetime('now'))`;
+
 export function listPublicFiches(filters: {
   zone?: string;
   type?: string;
@@ -230,7 +239,7 @@ export function listPublicFiches(filters: {
   // cocher). Comparaison sur le JSON stocké (ex : `%"Wifi"%`).
   equipements?: string[];
 }): Fiche[] {
-  let sql = `SELECT * FROM fiches WHERE statut_validation = 'VALIDEE' AND active = 1`;
+  let sql = `SELECT * FROM fiches WHERE statut_validation = 'VALIDEE' AND active = 1 AND ${ABONNEMENT_VALIDE_SQL}`;
   const params: (string | number)[] = [];
   if (filters.zone) {
     sql += ` AND zone = ?`;
@@ -262,7 +271,7 @@ export function zonesTendance(limit = 6): { zone: string; count: number; photo: 
   const rows = db
     .prepare(
       `SELECT zone, COUNT(*) as count
-       FROM fiches WHERE statut_validation = 'VALIDEE' AND active = 1
+       FROM fiches WHERE statut_validation = 'VALIDEE' AND active = 1 AND ${ABONNEMENT_VALIDE_SQL}
        GROUP BY zone ORDER BY count DESC, zone ASC LIMIT ?`
     )
     .all(limit) as unknown as { zone: string; count: number }[];
@@ -270,7 +279,7 @@ export function zonesTendance(limit = 6): { zone: string; count: number; photo: 
     const ficheRow = db
       .prepare(
         `SELECT photos FROM fiches
-         WHERE zone = ? AND statut_validation = 'VALIDEE' AND active = 1 AND photos != '[]'
+         WHERE zone = ? AND statut_validation = 'VALIDEE' AND active = 1 AND ${ABONNEMENT_VALIDE_SQL} AND photos != '[]'
          ORDER BY created_at DESC LIMIT 1`
       )
       .get(r.zone) as { photos: string } | undefined;
@@ -300,7 +309,7 @@ export function getOwnerPublicProfile(ownerId: string): OwnerPublicProfile | und
 export function listPublicFichesByOwner(ownerId: string): Fiche[] {
   const rows = db
     .prepare(
-      `SELECT * FROM fiches WHERE owner_id = ? AND statut_validation = 'VALIDEE' AND active = 1
+      `SELECT * FROM fiches WHERE owner_id = ? AND statut_validation = 'VALIDEE' AND active = 1 AND ${ABONNEMENT_VALIDE_SQL}
        ORDER BY created_at DESC`
     )
     .all(ownerId) as unknown as FicheRecord[];
@@ -315,7 +324,7 @@ export function ownerPublicStats(ownerId: string): {
   const nbFiches = (
     db
       .prepare(
-        `SELECT COUNT(*) as n FROM fiches WHERE owner_id = ? AND statut_validation = 'VALIDEE' AND active = 1`
+        `SELECT COUNT(*) as n FROM fiches WHERE owner_id = ? AND statut_validation = 'VALIDEE' AND active = 1 AND ${ABONNEMENT_VALIDE_SQL}`
       )
       .get(ownerId) as { n: number }
   ).n;
@@ -323,7 +332,8 @@ export function ownerPublicStats(ownerId: string): {
     .prepare(
       `SELECT COUNT(*) as total, COALESCE(AVG(a.note), 0) as moyenne
        FROM avis a JOIN fiches f ON f.id = a.fiche_id
-       WHERE f.owner_id = ? AND a.statut = 'VALIDEE' AND f.statut_validation = 'VALIDEE' AND f.active = 1`
+       WHERE f.owner_id = ? AND a.statut = 'VALIDEE' AND f.statut_validation = 'VALIDEE' AND f.active = 1
+         AND f.owner_id IN (SELECT owner_id FROM abonnements_proprietaires WHERE date_fin >= datetime('now'))`
     )
     .get(ownerId) as { total: number; moyenne: number };
   return {
@@ -339,7 +349,7 @@ export function listSimilarFiches(fiche: Fiche, limit = 8): Fiche[] {
   const rows = db
     .prepare(
       `SELECT * FROM fiches
-       WHERE id != ? AND statut_validation = 'VALIDEE' AND active = 1
+       WHERE id != ? AND statut_validation = 'VALIDEE' AND active = 1 AND ${ABONNEMENT_VALIDE_SQL}
          AND (zone = ? OR type = ?)
        ORDER BY (zone = ?) DESC, created_at DESC
        LIMIT ?`
@@ -351,7 +361,9 @@ export function listSimilarFiches(fiche: Fiche, limit = 8): Fiche[] {
 export function siteWidePublicStats(): { nbFiches: number; nbAvis: number } {
   const nbFiches = (
     db
-      .prepare(`SELECT COUNT(*) as n FROM fiches WHERE statut_validation = 'VALIDEE' AND active = 1`)
+      .prepare(
+        `SELECT COUNT(*) as n FROM fiches WHERE statut_validation = 'VALIDEE' AND active = 1 AND ${ABONNEMENT_VALIDE_SQL}`
+      )
       .get() as { n: number }
   ).n;
   const nbAvis = (
@@ -712,6 +724,7 @@ export function listActivePromotions() {
        FROM promotions p
        JOIN fiches f ON f.id = p.fiche_id
        WHERE p.active = 1 AND f.statut_validation = 'VALIDEE' AND f.active = 1
+         AND f.owner_id IN (SELECT owner_id FROM abonnements_proprietaires WHERE date_fin >= datetime('now'))
        ORDER BY p.created_at DESC`
     )
     .all() as unknown as (PromotionRecord & {
@@ -878,4 +891,110 @@ export function deleteEvenement(id: string) {
 
 export function toggleEvenementActive(id: string, active: boolean) {
   db.prepare(`UPDATE evenements SET active = ? WHERE id = ?`).run(active ? 1 : 0, id);
+}
+
+// ---------- Abonnement propriétaire ----------
+// Auto-déclaré par le propriétaire lui-même (demande explicite de
+// l'utilisateur) : pas de vraie passerelle de paiement, le montant est
+// recalculé côté serveur à partir de la durée choisie (jamais fait
+// confiance à une valeur envoyée par le formulaire).
+
+export function createAbonnementProprietaire(input: {
+  ownerId: string;
+  dureeMois: number;
+  moyenPaiement: string;
+  referencePaiement?: string;
+}): AbonnementProprietaireRecord {
+  const montant = calculerMontantAbonnement(input.dureeMois);
+  // Un renouvellement anticipé prolonge à partir de la date de fin en cours
+  // (si elle est encore valide), plutôt que de faire perdre les jours
+  // restants au propriétaire.
+  const statutActuel = getAbonnementStatutProprietaire(input.ownerId);
+  const debut =
+    statutActuel.valide && statutActuel.abonnement
+      ? new Date(statutActuel.abonnement.date_fin)
+      : new Date();
+  const fin = new Date(debut.getTime() + input.dureeMois * ABONNEMENT_JOURS_PAR_MOIS * 24 * 60 * 60 * 1000);
+
+  const id = randomUUID();
+  db.prepare(
+    `INSERT INTO abonnements_proprietaires
+       (id, owner_id, duree_mois, montant, moyen_paiement, reference_paiement, date_debut, date_fin)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+  ).run(
+    id,
+    input.ownerId,
+    input.dureeMois,
+    montant,
+    input.moyenPaiement,
+    input.referencePaiement ?? "",
+    debut.toISOString(),
+    fin.toISOString()
+  );
+  return db
+    .prepare(`SELECT * FROM abonnements_proprietaires WHERE id = ?`)
+    .get(id) as unknown as AbonnementProprietaireRecord;
+}
+
+export function listAbonnementsProprietaire(ownerId: string): AbonnementProprietaireRecord[] {
+  return db
+    .prepare(
+      `SELECT * FROM abonnements_proprietaires WHERE owner_id = ? ORDER BY date_fin DESC`
+    )
+    .all(ownerId) as unknown as AbonnementProprietaireRecord[];
+}
+
+// L'abonnement "courant" d'un propriétaire est celui dont date_fin est la
+// plus lointaine (et non le plus récemment créé) : un renouvellement anticipé
+// crée une nouvelle ligne dont la date de fin dépasse la précédente.
+export function getAbonnementStatutProprietaire(ownerId: string): AbonnementStatut {
+  const row = db
+    .prepare(
+      `SELECT * FROM abonnements_proprietaires WHERE owner_id = ? ORDER BY date_fin DESC LIMIT 1`
+    )
+    .get(ownerId) as unknown as AbonnementProprietaireRecord | undefined;
+  if (!row) {
+    return { abonnement: null, valide: false, joursRestants: 0 };
+  }
+  const msRestants = new Date(row.date_fin).getTime() - Date.now();
+  const joursRestants = Math.ceil(msRestants / (24 * 60 * 60 * 1000));
+  return { abonnement: { ...row }, valide: msRestants > 0, joursRestants };
+}
+
+// Utilisé pour filtrer les fiches publiques : sans abonnement valide, les
+// fiches d'un propriétaire sont masquées du public (demande explicite de
+// l'utilisateur), même si elles restent VALIDEE/active en base.
+export function listOwnerIdsAvecAbonnementValide(): Set<string> {
+  const rows = db
+    .prepare(
+      `SELECT DISTINCT owner_id FROM abonnements_proprietaires WHERE date_fin >= datetime('now')`
+    )
+    .all() as unknown as { owner_id: string }[];
+  return new Set(rows.map((r) => r.owner_id));
+}
+
+// Utilisé sur la page fiche détail publique : une fiche VALIDEE/active reste
+// consultable par son id direct, mais pas si son propriétaire n'a plus
+// d'abonnement valide (cohérent avec le masquage dans les listings).
+export function proprietaireAAbonnementValide(ownerId: string): boolean {
+  const row = db
+    .prepare(
+      `SELECT 1 FROM abonnements_proprietaires WHERE owner_id = ? AND date_fin >= datetime('now') LIMIT 1`
+    )
+    .get(ownerId);
+  return !!row;
+}
+
+// Vue d'ensemble pour l'admin : statut d'abonnement de chaque propriétaire.
+export function listAbonnementsProprietairesAvecOwners(): {
+  owner: UserRecord;
+  statut: AbonnementStatut;
+}[] {
+  const owners = db
+    .prepare(`SELECT * FROM users WHERE role = 'PROPRIETAIRE' ORDER BY nom ASC`)
+    .all() as unknown as UserRecord[];
+  return owners.map((owner) => ({
+    owner: { ...owner },
+    statut: getAbonnementStatutProprietaire(owner.id),
+  }));
 }

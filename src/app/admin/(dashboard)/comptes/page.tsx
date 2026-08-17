@@ -1,9 +1,22 @@
-import { listOwners, countFichesForOwner } from "@/lib/data";
+import { listOwners, countFichesForOwner, getAbonnementStatutProprietaire } from "@/lib/data";
 import StatusBadge from "@/components/StatusBadge";
 import ToggleButton from "@/components/ToggleButton";
-import { adminSetOwnerStatutAction, adminDeleteOwnerAction } from "@/lib/actions/admin";
+import {
+  adminSetOwnerStatutAction,
+  adminDeleteOwnerAction,
+} from "@/lib/actions/admin";
+import { envoyerRappelAbonnementAction } from "@/lib/actions/abonnement";
 
 export const metadata = { title: "Comptes propriétaires — Administration" };
+
+function libelleAbonnement(joursRestants: number, valide: boolean): string {
+  if (!valide) {
+    return joursRestants === 0
+      ? "Expire aujourd'hui"
+      : `Expiré depuis ${Math.abs(joursRestants)} j`;
+  }
+  return `${joursRestants} j restants`;
+}
 
 export default function AdminComptesPage() {
   const owners = listOwners();
@@ -38,11 +51,14 @@ export default function AdminComptesPage() {
                 <th className="px-4 py-3">Téléphone</th>
                 <th className="px-4 py-3">Fiches</th>
                 <th className="px-4 py-3">Statut</th>
+                <th className="px-4 py-3">Abonnement</th>
                 <th className="px-4 py-3" />
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {owners.map((o) => (
+              {owners.map((o) => {
+                const abonnement = getAbonnementStatutProprietaire(o.id);
+                return (
                 <tr key={o.id}>
                   <td className="px-4 py-3 font-medium text-slate-800">{o.nom}</td>
                   <td className="px-4 py-3 text-slate-500">{o.email}</td>
@@ -50,6 +66,26 @@ export default function AdminComptesPage() {
                   <td className="px-4 py-3 text-slate-500">{countFichesForOwner(o.id)}</td>
                   <td className="px-4 py-3">
                     <StatusBadge status={o.statut} />
+                  </td>
+                  <td className="px-4 py-3">
+                    {abonnement.abonnement ? (
+                      <div className="flex items-center gap-2">
+                        <StatusBadge status={abonnement.valide ? "ACTIF" : "SUSPENDU"} />
+                        <span className="text-xs text-slate-400">
+                          {libelleAbonnement(abonnement.joursRestants, abonnement.valide)}
+                        </span>
+                      </div>
+                    ) : (
+                      <StatusBadge status="INACTIVE" />
+                    )}
+                    {(!abonnement.abonnement || abonnement.joursRestants <= 7) && (
+                      <ToggleButton
+                        action={envoyerRappelAbonnementAction.bind(null, o.id)}
+                        className="mt-1.5 block text-xs font-medium text-brand-deep underline decoration-dotted hover:text-brand-teal"
+                      >
+                        Envoyer un rappel SMS
+                      </ToggleButton>
+                    )}
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center justify-end gap-2">
@@ -81,7 +117,8 @@ export default function AdminComptesPage() {
                     </div>
                   </td>
                 </tr>
-              ))}
+                );
+              })}
             </tbody>
           </table>
         </div>

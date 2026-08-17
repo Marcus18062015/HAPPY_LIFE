@@ -7,7 +7,7 @@ export default function ToggleButton({
   className = "",
   children,
 }: {
-  action: () => Promise<void>;
+  action: () => Promise<unknown>;
   className?: string;
   children: React.ReactNode;
 }) {
@@ -16,7 +16,11 @@ export default function ToggleButton({
     <button
       type="button"
       disabled={isPending}
-      onClick={() => startTransition(() => action())}
+      onClick={() =>
+        startTransition(() => {
+          action();
+        })
+      }
       className={`${className} disabled:cursor-not-allowed disabled:opacity-60`}
     >
       {children}

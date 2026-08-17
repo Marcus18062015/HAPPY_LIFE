@@ -10,6 +10,7 @@ import {
   avisStatsForFiches,
   listFavoriIdsForVisiteur,
   getOwnerPublicProfile,
+  proprietaireAAbonnementValide,
 } from "@/lib/data";
 import { TYPE_LABELS, noteLabel } from "@/lib/constants";
 import PhotoGallery from "@/components/PhotoGallery";
@@ -34,7 +35,12 @@ export default async function FicheDetailPage({
   const { id } = await params;
   const fiche = getFicheById(id);
 
-  if (!fiche || fiche.statut_validation !== "VALIDEE" || !fiche.active) {
+  if (
+    !fiche ||
+    fiche.statut_validation !== "VALIDEE" ||
+    !fiche.active ||
+    !proprietaireAAbonnementValide(fiche.owner_id)
+  ) {
     notFound();
   }
 

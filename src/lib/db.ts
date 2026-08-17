@@ -142,7 +142,27 @@ export function initSchema() {
       created_at TEXT NOT NULL DEFAULT (datetime('now'))
     );
 
+    -- Abonnement payant des propriétaires (demande explicite de
+    -- l'utilisateur : 10 000 FCFA / mois, -5% sur 3 mois, -8% sur 6 mois,
+    -- -10% sur 12 mois). Auto-déclaré par le propriétaire lui-même — pas de
+    -- vraie passerelle de paiement branchée, voir src/lib/actions/abonnement.ts.
+    -- Une ligne par période souscrite : l'abonnement "actif" est celui dont
+    -- date_fin est la plus lointaine et >= maintenant.
+    CREATE TABLE IF NOT EXISTS abonnements_proprietaires (
+      id TEXT PRIMARY KEY,
+      owner_id TEXT NOT NULL,
+      duree_mois INTEGER NOT NULL,
+      montant INTEGER NOT NULL,
+      moyen_paiement TEXT NOT NULL,
+      reference_paiement TEXT NOT NULL DEFAULT '',
+      date_debut TEXT NOT NULL,
+      date_fin TEXT NOT NULL,
+      created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      FOREIGN KEY (owner_id) REFERENCES users(id)
+    );
+
     CREATE INDEX IF NOT EXISTS idx_fiches_owner ON fiches(owner_id);
+    CREATE INDEX IF NOT EXISTS idx_abonnements_owner ON abonnements_proprietaires(owner_id);
     CREATE INDEX IF NOT EXISTS idx_demandes_fiche ON demandes(fiche_id);
     CREATE INDEX IF NOT EXISTS idx_demandes_evenement ON demandes(evenement_id);
     CREATE INDEX IF NOT EXISTS idx_demandes_visiteur ON demandes(visiteur_id);

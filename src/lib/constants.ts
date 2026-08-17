@@ -52,3 +52,34 @@ export function noteLabel(moyenne: number): string {
   if (moyenne >= 3.0) return "Bien";
   return "Correct";
 }
+
+// ---------- Abonnement propriétaire ----------
+// Demande explicite de l'utilisateur : 10 000 FCFA / mois, avec une remise
+// selon la durée choisie. 1 "mois" = 30 jours (pas un mois calendaire), pour
+// rester cohérent avec le reste de l'application (offres, promotions...).
+export const ABONNEMENT_PRIX_MENSUEL = 10000; // FCFA
+export const ABONNEMENT_JOURS_PAR_MOIS = 30;
+// Seuil à partir duquel le bandeau de rappel s'affiche dans l'espace
+// propriétaire.
+export const ABONNEMENT_RAPPEL_JOURS = 7;
+
+export const ABONNEMENT_OFFRES: { mois: number; remisePct: number; label: string }[] = [
+  { mois: 1, remisePct: 0, label: "1 mois" },
+  { mois: 3, remisePct: 5, label: "3 mois" },
+  { mois: 6, remisePct: 8, label: "6 mois" },
+  { mois: 12, remisePct: 10, label: "12 mois" },
+];
+
+export function calculerMontantAbonnement(mois: number): number {
+  const offre = ABONNEMENT_OFFRES.find((o) => o.mois === mois);
+  const remisePct = offre?.remisePct ?? 0;
+  const brut = ABONNEMENT_PRIX_MENSUEL * mois;
+  return Math.round((brut * (100 - remisePct)) / 100);
+}
+
+export const MOYENS_PAIEMENT_ABONNEMENT = [
+  "Mobile Money",
+  "Virement bancaire",
+  "Espèces",
+  "Autre",
+];
