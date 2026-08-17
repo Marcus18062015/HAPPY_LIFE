@@ -1,0 +1,69 @@
+HAPPY LIFE — Démarrage rapide (Windows)
+============================================
+
+Cette application tourne entièrement sur VOTRE ordinateur. Une fois
+installée, elle n'a besoin d'AUCUNE connexion internet pour fonctionner :
+aucune donnée ne sort de votre machine.
+
+Étape 1 — Une seule fois :
+   Double-cliquez sur "1-Installer.bat"
+   (nécessite une connexion internet, juste pour cette étape,
+   le temps de télécharger les composants)
+
+Étape 2 — À chaque fois que vous voulez utiliser l'application :
+   Double-cliquez sur "2-Lancer_Happy_Life.bat"
+   Votre navigateur s'ouvre automatiquement sur l'application.
+   Pour arrêter l'application, fermez simplement la fenêtre noire
+   qui s'est ouverte (ou appuyez sur Ctrl+C dedans).
+
+Prérequis : Node.js (version 22 ou plus récente) installé sur
+l'ordinateur — téléchargeable gratuitement sur https://nodejs.org
+Si ce n'est pas déjà fait, "1-Installer.bat" vous le signalera.
+
+Comptes de démonstration une fois l'application lancée :
+   Administrateur   : admin@happylife.ga / admin1234
+   Propriétaire     : sarah.ondo@happylife.ga / proprio1234
+
+
+UTILISER HAPPY LIFE SUR VOTRE TÉLÉPHONE
+============================================
+
+Le PC doit rester allumé avec "2-Lancer_Happy_Life.bat" en cours
+d'exécution, et votre téléphone doit être connecté au MÊME Wi-Fi que
+ce PC (aucun accès internet nécessaire — tout reste sur votre réseau
+local).
+
+1. Lancez "2-Lancer_Happy_Life.bat" sur le PC.
+   La fenêtre affiche une ou plusieurs adresses du type :
+      http://192.168.x.x:3000
+
+2. Sur votre téléphone, ouvrez le navigateur (Chrome, Safari...) et
+   tapez exactement cette adresse.
+
+   Si rien ne s'affiche : la première fois, Windows peut demander
+   d'"Autoriser l'accès" dans une alerte "Pare-feu Windows Defender" —
+   acceptez-la sur le PC, puis réessayez sur le téléphone.
+
+3. Pour l'installer comme une vraie application (icône sur l'écran
+   d'accueil, plein écran sans barre de navigateur) :
+
+   Sur iPhone (Safari) :
+      Appuyez sur le bouton Partager (le carré avec une flèche),
+      puis "Sur l'écran d'accueil". L'icône Happy Life apparaît
+      et s'ouvre en plein écran, comme une application installée.
+
+   Sur Android (Chrome) :
+      Appuyez sur le menu ⋮ (trois points en haut à droite),
+      puis "Ajouter à l'écran d'accueil" (ou "Installer l'application"
+      si Chrome le propose directement). Une icône Happy Life
+      est ajoutée à votre écran d'accueil.
+
+   Remarque : sur Android, comme l'application tourne sur votre
+   réseau local (pas sur internet en https), l'icône peut s'ouvrir
+   avec la barre d'adresse Chrome visible plutôt qu'en plein écran
+   total — cela reste néanmoins un accès en un seul geste, sans
+   avoir à retaper l'adresse.
+
+
+Pour plus de détails (fonctionnement, structure du projet,
+correspondance avec le cahier des charges), voir README.md.
