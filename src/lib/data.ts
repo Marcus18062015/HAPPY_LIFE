@@ -784,20 +784,34 @@ export function deleteAbonne(id: string) {
 export function createPublicite(input: {
   titre: string;
   annonceur: string;
+  description?: string;
   image?: string;
   lien?: string;
 }): PubliciteRecord {
   const id = randomUUID();
   db.prepare(
-    `INSERT INTO publicites (id, titre, annonceur, image, lien, active) VALUES (?, ?, ?, ?, ?, 1)`
-  ).run(id, input.titre, input.annonceur, input.image ?? null, input.lien ?? null);
+    `INSERT INTO publicites (id, titre, annonceur, description, image, lien, active) VALUES (?, ?, ?, ?, ?, ?, 1)`
+  ).run(
+    id,
+    input.titre,
+    input.annonceur,
+    input.description ?? "",
+    input.image ?? null,
+    input.lien ?? null
+  );
   return db.prepare(`SELECT * FROM publicites WHERE id = ?`).get(id) as unknown as PubliciteRecord;
 }
 
 export function listActivePublicites(): PubliciteRecord[] {
-  return db
+  // .map(r => ({ ...r })) : les lignes renvoyées par node:sqlite ne sont pas
+  // toujours de purs objets (prototype non standard). PubliciteBanner est un
+  // Client Component (défilement + fenêtre modale) : React refuse de faire
+  // traverser la frontière serveur → client à autre chose qu'un objet
+  // "plain" — d'où cette copie explicite avant de renvoyer les données.
+  const rows = db
     .prepare(`SELECT * FROM publicites WHERE active = 1 ORDER BY created_at DESC`)
     .all() as unknown as PubliciteRecord[];
+  return rows.map((r) => ({ ...r }));
 }
 
 export function listAllPublicites(): PubliciteRecord[] {

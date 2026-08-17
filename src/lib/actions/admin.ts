@@ -187,6 +187,7 @@ export async function adminCreatePubliciteAction(formData: FormData) {
   await requireAdmin();
   const titre = String(formData.get("titre") || "").trim();
   const annonceur = String(formData.get("annonceur") || "").trim();
+  const description = String(formData.get("description") || "").trim();
   const image = String(formData.get("image") || "").trim();
   const lien = String(formData.get("lien") || "").trim();
 
@@ -194,7 +195,7 @@ export async function adminCreatePubliciteAction(formData: FormData) {
     return;
   }
 
-  createPublicite({ titre, annonceur, image, lien });
+  createPublicite({ titre, annonceur, description, image, lien });
   revalidatePath("/admin/publicites");
   revalidatePath("/");
 }

@@ -135,6 +135,7 @@ export function initSchema() {
       id TEXT PRIMARY KEY,
       titre TEXT NOT NULL,
       annonceur TEXT NOT NULL DEFAULT '',
+      description TEXT NOT NULL DEFAULT '',
       image TEXT,
       lien TEXT,
       active INTEGER NOT NULL DEFAULT 1,

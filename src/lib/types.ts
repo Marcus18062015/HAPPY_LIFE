@@ -107,6 +107,7 @@ export interface PubliciteRecord {
   id: string;
   titre: string;
   annonceur: string;
+  description: string;
   image: string | null;
   lien: string | null;
   active: number; // 0 | 1
