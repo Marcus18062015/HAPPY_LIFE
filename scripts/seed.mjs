@@ -162,6 +162,7 @@ const images = {
   piscine: existingImages("seed", "piscine", 4),
   appartement: existingImages("seed", "appartement", 4),
   evenements: existingImages("evenements", "evt", 3),
+  publicite: existingImages("seed", "publicite", 2),
 };
 
 function insertUser({ role, nom, email, telephone, password }) {
@@ -569,6 +570,22 @@ insertPromotion({
 });
 
 // ---- Encart publicitaire de démonstration ----
+// Deux exemples fournis par l'utilisateur (photos + résumés), pour montrer
+// le défilement de l'encart dès qu'il y a plusieurs annonces actives —
+// déposées par l'administrateur ou par un propriétaire actif (mêmes droits,
+// voir /admin/publicites).
+insertPublicite({
+  titre: "Piscine à débordement avec vue panoramique sur l'océan",
+  annonceur: "Villa de prestige",
+  image: images.publicite[0],
+  lien: "/recherche",
+});
+insertPublicite({
+  titre: "Résidence La Salinière — piscine, bassin enfants et bar en paillote",
+  annonceur: "500 m après l'hôtel Orchidée",
+  image: images.publicite[1],
+  lien: "/recherche",
+});
 insertPublicite({
   titre: "Votre publicité ici",
   annonceur: "Happy Life",

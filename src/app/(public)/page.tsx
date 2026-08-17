@@ -35,7 +35,6 @@ export default async function HomePage() {
   const promotions = listActivePromotions().slice(0, 8);
   const evenements = listActiveEvenements().slice(0, 8);
   const publicites = listActivePublicites();
-  const publicite = publicites[0];
   const siteStats = siteWidePublicStats();
   const zones = zonesTendance(6);
 
@@ -140,9 +139,9 @@ export default async function HomePage() {
         </div>
       </ProfileHero>
 
-      {publicite && (
+      {publicites.length > 0 && (
         <section className="mx-auto max-w-6xl px-4 pt-6 sm:px-6">
-          <PubliciteBanner publicite={publicite} />
+          <PubliciteBanner publicites={publicites} />
         </section>
       )}
 

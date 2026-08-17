@@ -51,3 +51,33 @@ body {
 .app-tabbar-shadow {
   box-shadow: 0 -6px 18px rgba(11, 44, 61, 0.08);
 }
+
+/* Encart publicitaire : défilement continu de droite à gauche. Le contenu
+   est dupliqué une fois par PubliciteBanner ; translateX(-50%) fait donc
+   défiler exactement une "copie" complète avant de boucler, sans saut
+   visible. En pause au survol, désactivé si l'utilisateur préfère moins
+   d'animations. */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation-name: marquee-scroll;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}
