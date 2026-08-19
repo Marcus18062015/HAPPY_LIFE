@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import Image from "next/image";
 import { cookies } from "next/headers";
 import FicheCard from "@/components/FicheCard";
@@ -22,6 +22,7 @@ import {
 } from "@/lib/data";
 import { ZONES } from "@/lib/constants";
 import { PinIcon } from "@/components/icons";
+import { SPLASH_SLIDES } from "@/lib/splashSlides";
 
 // La page d'accueil affiche les dernières fiches validées, les favoris du
 // visiteur et les promotions/événements actifs : on désactive le cache
@@ -49,6 +50,8 @@ export default async function HomePage() {
     <div>
       <ProfileHero
         coverImage="/hero-photo.jpg"
+        coverSlides={SPLASH_SLIDES}
+        coverIntervalMs={2250}
         priority
         avatar={
           <LogoMark size={72} className="drop-shadow-[0_8px_20px_rgba(4,20,28,0.55)]" />
@@ -382,3 +385,4 @@ function EmptyState({ label }: { label: string }) {
     </div>
   );
 }
+

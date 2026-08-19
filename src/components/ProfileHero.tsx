@@ -1,6 +1,8 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
 import { VerifiedBadgeIcon } from "./icons";
+import SplashCarousel from "./SplashCarousel";
+import type { SplashSlide } from "@/lib/splashSlides";
 
 // Bandeau "façon profil" réutilisé sur trois écrans (accueil, fiche détail,
 // vitrine propriétaire) : photo pleine largeur, avatar, titre + badge
@@ -11,6 +13,12 @@ import { VerifiedBadgeIcon } from "./icons";
 export default function ProfileHero({
   coverImage,
   coverAlt = "",
+  // Si fourni, remplace la photo de couverture statique par un carrousel
+  // de plusieurs photos qui défilent automatiquement (utilisé sur la page
+  // d'accueil). `coverImage` sert alors uniquement de repli si `coverSlides`
+  // est vide.
+  coverSlides,
+  coverIntervalMs,
   avatar,
   title,
   verified = false,
@@ -29,6 +37,8 @@ export default function ProfileHero({
 }: {
   coverImage: string;
   coverAlt?: string;
+  coverSlides?: SplashSlide[];
+  coverIntervalMs?: number;
   avatar?: React.ReactNode;
   title: string;
   verified?: boolean;
@@ -48,16 +58,24 @@ export default function ProfileHero({
     // lisible en blanc, même après la zone couverte par la photo.
     <section className="relative overflow-hidden bg-[#04141c] text-white">
       <div className="relative h-[300px] w-full sm:h-[360px]">
-        <Image
-          src={coverImage}
-          alt={coverAlt}
-          fill
-          priority={priority}
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#04141c] via-[#04141c]/45 to-[#04141c]/10" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#04141c]/50 via-transparent to-transparent" />
+        {coverSlides && coverSlides.length > 0 ? (
+          <SplashCarousel
+            slides={coverSlides}
+            intervalMs={coverIntervalMs}
+            variant="compact"
+          />
+        ) : (
+          <Image
+            src={coverImage}
+            alt={coverAlt}
+            fill
+            priority={priority}
+            sizes="100vw"
+            className="object-cover"
+          />
+        )}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#04141c] via-[#04141c]/45 to-[#04141c]/10" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#04141c]/50 via-transparent to-transparent" />
 
         {(topLeft || topRight) && (
           <div className="absolute inset-x-0 top-0 flex items-center justify-between px-4 pt-4 sm:px-6">
@@ -140,3 +158,4 @@ export function HeroPillButton({
     </button>
   );
 }
+
