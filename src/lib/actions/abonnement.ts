@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { getSession } from "@/lib/auth";
-import { getAdminEquivalentSession } from "@/lib/access";
+import { getAdminSession } from "@/lib/access";
 import {
   createAbonnementProprietaire,
   getUserById,
@@ -71,7 +71,7 @@ export async function souscrireAbonnementAction(
 // pour l'instant un bouton manuel dans l'espace admin. Le bandeau dans
 // l'espace propriétaire, lui, s'affiche automatiquement.
 export async function envoyerRappelAbonnementAction(ownerId: string) {
-  const admin = await getAdminEquivalentSession();
+  const admin = await getAdminSession();
   if (!admin) {
     return { envoye: false, raison: "Accès refusé." };
   }

@@ -46,9 +46,9 @@ Créés par `npm run seed` (à ne pas utiliser tels quels en production) :
 | Rôle | Email | Mot de passe |
 | --- | --- | --- |
 | Administrateur | admin@happylife.ga | admin1234 |
-| Propriétaire (actif — mêmes droits que l'admin) | sarah.ondo@happylife.ga | proprio1234 |
-| Propriétaire (actif — mêmes droits que l'admin) | jp.mba@happylife.ga | proprio1234 |
-| Propriétaire (actif — mêmes droits que l'admin) | contact@residences-owendo.ga | proprio1234 |
+| Propriétaire (actif) | sarah.ondo@happylife.ga | proprio1234 |
+| Propriétaire (actif) | jp.mba@happylife.ga | proprio1234 |
+| Propriétaire (actif) | contact@residences-owendo.ga | proprio1234 |
 
 Le jeu de données inclut des fiches piscines et appartements dans plusieurs zones de Libreville, à différents statuts (validée, en attente, refusée) et quelques demandes de réservation, pour visualiser tous les parcours dès le premier lancement.
 
@@ -68,7 +68,6 @@ Les photos affichées sont des visuels de démonstration générés localement (
 - Réception des demandes envoyées par les visiteurs, avec suivi *nouvelle / traitée*.
 - Activation / désactivation de chaque fiche à tout moment.
 - Toute modification d'une fiche déjà validée la repasse automatiquement en attente de validation (contrôle éditorial systématique).
-- **Un propriétaire actif a en plus, à la demande explicite de l'utilisateur, les mêmes droits que l'administrateur** — voir *Droits identiques administrateur / propriétaire* ci-dessous.
 
 ### 4.3 — Fonctions admin (`/admin`)
 - Validation, refus (avec motif visible par le propriétaire) ou remise en attente de chaque fiche : c'est la **modération obligatoire avant publication** exigée en section 10.
@@ -76,13 +75,9 @@ Les photos affichées sont des visuels de démonstration générés localement (
 - Suivi de toutes les demandes, tous propriétaires confondus.
 - Tableau de bord : nombre de fiches, nombre de demandes, état des contenus publiés (validées / en attente / refusées).
 
-### Droits identiques administrateur / propriétaire
+L'espace `/admin` est strictement réservé au rôle ADMIN (conformément à la section 10 du cahier des charges — *« Accès administrateur strictement séparé de l'espace propriétaire »*). Un propriétaire, même actif, n'a accès qu'à son propre espace `/proprietaire` et ne peut modérer, valider ou supprimer que son propre contenu (ses fiches, les demandes reçues sur ses fiches, son abonnement) — jamais celui des autres propriétaires ni la gestion des comptes.
 
-À la demande explicite de l'utilisateur (*« l'administrateur et le propriétaire ont les mêmes droits »*), un compte propriétaire **actif** a désormais accès à l'intégralité de l'espace `/admin` (lien *Administration* dans son propre tableau de bord) : validation/refus de **toutes** les fiches (pas seulement les siennes), suivi de toutes les demandes, modération des avis, gestion des promotions et des événements, et gestion des comptes propriétaires (y compris validation des nouvelles inscriptions et suppression des comptes non conformes).
-
-Pour que cet accès élargi reste maîtrisé, une nouvelle étape a été introduite : **tout compte propriétaire créé par auto-inscription démarre au statut « en attente »** et ne peut ni se connecter ni agir tant qu'il n'a pas été validé par l'administrateur ou par un propriétaire déjà actif (bouton *Valider* dans `/admin/comptes`). Ce garde-fou évite qu'un compte tout juste créé, potentiellement frauduleux, obtienne immédiatement des droits d'administration.
-
-⚠️ **Note de sécurité** : cette évolution supprime, pour les propriétaires actifs, la séparation stricte entre l'espace propriétaire et l'espace admin prévue à l'origine par le cahier des charges (section 10 — *« Accès administrateur strictement séparé de l'espace propriétaire »*), ainsi que le principe qu'un propriétaire ne modère que son propre contenu. Sur une plateforme réellement mise en ligne avec plusieurs propriétaires indépendants, cela signifie que chacun peut valider, refuser ou supprimer les fiches, avis, comptes et demandes des autres. Ce choix a été fait sciemment par l'utilisateur, qui a été informé de cet arbitrage avant de le confirmer ; il peut être révisé plus tard si un modèle plus restrictif (ex. propriétaires limités à leur propre contenu) s'avère préférable en production.
+Tout compte propriétaire créé par auto-inscription démarre au statut « en attente » et ne peut ni se connecter ni agir tant qu'il n'a pas été validé par l'administrateur (bouton *Valider* dans `/admin/comptes`).
 
 ### 5 — Ce que l'application ne fait toujours pas
 Aucun paiement intégré, aucune réservation automatisée avec disponibilité en temps réel, aucun chat en direct, aucun agenda synchronisé, aucun compte visiteur (favoris/réservations restent liés à l'appareil via cookie, sans mot de passe). Les disponibilités des fiches sont saisies en texte libre par le propriétaire, exactement comme prévu pour cette phase du cahier des charges.
@@ -97,8 +92,7 @@ Aucun paiement intégré, aucune réservation automatisée avec disponibilité e
 - **Événements** (`evenements`) : l'admin publie des événements (concerts, festivals, marchés) affichés en page d'accueil ; les visiteurs envoient une demande de place centralisée par Happy Life, comme pour les fiches (`/admin/evenements`).
 - **Mes réservations** (`/mes-reservations`) : historique des demandes envoyées depuis cet appareil (fiches et événements), également lié au cookie visiteur.
 - **Écran d'accueil façon application** (`Commencer` / `Se connecter`) et **installation sur l'écran d'accueil du téléphone** (PWA) — voir la section *Accès mobile* ci-dessus.
-- **Droits identiques administrateur / propriétaire** : un propriétaire dont le compte est actif a accès à `/admin` avec les mêmes droits que l'administrateur (validation des fiches, avis, promotions, événements, comptes). Voir la section *Droits identiques administrateur / propriétaire* ci-dessus.
-- **Validation des nouveaux comptes propriétaires** : toute nouvelle inscription (`/proprietaire/inscription`) démarre au statut « en attente » et ne peut se connecter qu'après validation par l'administrateur ou par un propriétaire déjà actif (`/admin/comptes`, bouton « Valider »).
+- **Validation des nouveaux comptes propriétaires** : toute nouvelle inscription (`/proprietaire/inscription`) démarre au statut « en attente » et ne peut se connecter qu'après validation par l'administrateur (`/admin/comptes`, bouton « Valider »).
 - **Vitrine propriétaire publique** (`/proprietaires/[id]`) : page de profil présentant un propriétaire (nom, badge vérifié, nombre de fiches, note moyenne) et la liste de ses fiches publiées — sans jamais exposer téléphone/email (voir *Sécurité & confidentialité*). Accessible depuis chaque fiche détail.
 - **Favoris propriétaires** : en plus des favoris sur une fiche, un visiteur peut suivre un propriétaire entier (bouton « ♥ Favoris » sur sa vitrine), consultable sur `/favoris`.
 - **Partage** : bouton de partage (API native du téléphone, ou lien copié) sur la page d'accueil, une fiche et une vitrine propriétaire.

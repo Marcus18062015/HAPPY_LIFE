@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getAdminEquivalentSession } from "@/lib/access";
+import { getAdminSession } from "@/lib/access";
 import DashboardNav from "@/components/DashboardNav";
 
 const LINKS = [
@@ -20,7 +20,7 @@ export default async function AdminDashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getAdminEquivalentSession();
+  const session = await getAdminSession();
   if (!session) {
     redirect("/admin/connexion");
   }

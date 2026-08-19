@@ -10,10 +10,6 @@ const LINKS = [
   { href: "/proprietaire/fiches/nouvelle", label: "Nouvelle fiche" },
   { href: "/proprietaire/demandes", label: "Demandes reçues" },
   { href: "/proprietaire/abonnement", label: "Mon abonnement" },
-  // Un propriétaire actif a les mêmes droits que l'administrateur : ce lien
-  // donne accès à l'espace /admin (validation des fiches et des comptes,
-  // avis, promotions, événements, toutes les demandes).
-  { href: "/admin", label: "Administration" },
 ];
 
 export default async function OwnerDashboardLayout({

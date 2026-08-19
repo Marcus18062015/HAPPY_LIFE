@@ -31,9 +31,8 @@ export function createUser(input: {
   telephone?: string;
   passwordHash: string;
   // Un compte propriétaire créé par auto-inscription démarre en attente de
-  // validation (par l'administrateur ou par un autre propriétaire actif —
-  // droits équivalents). Les comptes créés autrement (seed, admin) peuvent
-  // forcer un statut différent (ex : 'ACTIF').
+  // validation par l'administrateur. Les comptes créés autrement (seed,
+  // admin) peuvent forcer un statut différent (ex : 'ACTIF').
   statut?: "EN_ATTENTE" | "ACTIF" | "SUSPENDU";
 }): UserRecord {
   const id = randomUUID();
@@ -87,10 +86,10 @@ export function countFichesForOwner(ownerId: string): number {
 }
 
 // Suppression d'un compte propriétaire — volontairement restreinte au rôle
-// PROPRIETAIRE (WHERE role = 'PROPRIETAIRE') pour qu'un propriétaire ayant
-// désormais des droits équivalents à l'admin ne puisse jamais supprimer le
-// compte administrateur. Les fiches de ce propriétaire sont supprimées en
-// cascade (fiches.owner_id REFERENCES users(id) ON DELETE CASCADE).
+// PROPRIETAIRE (WHERE role = 'PROPRIETAIRE') pour qu'il soit impossible de
+// supprimer le compte administrateur par ce biais. Les fiches de ce
+// propriétaire sont supprimées en cascade (fiches.owner_id REFERENCES
+// users(id) ON DELETE CASCADE).
 export function deleteOwner(id: string) {
   db.prepare(`DELETE FROM users WHERE id = ? AND role = 'PROPRIETAIRE'`).run(id);
 }
@@ -759,9 +758,8 @@ export function togglePromotionActive(id: string, active: boolean) {
 // être prévenu des nouveaux événements, promotions et fiches. Aucun envoi
 // automatique d'email/SMS n'existe dans ce MVP (pas de service tiers
 // configuré) — les coordonnées sont collectées ici et consultables par
-// l'administrateur / les propriétaires actifs (mêmes droits) sur
-// /admin/abonnes, pour un envoi manuel (ou branchement futur d'un service
-// d'envoi).
+// l'administrateur sur /admin/abonnes, pour un envoi manuel (ou branchement
+// futur d'un service d'envoi).
 
 export function createAbonne(input: { email?: string; telephone?: string }): AbonneRecord {
   const email = input.email?.trim() || null;

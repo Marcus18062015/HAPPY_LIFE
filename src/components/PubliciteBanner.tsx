@@ -136,8 +136,8 @@ function PubliciteDetailDialog({
 }
 
 // Encart publicitaire — fait défiler horizontalement, de droite à gauche, la
-// totalité des publicités actives (déposées par l'administrateur ou par un
-// propriétaire actif — mêmes droits, voir /admin/publicites). Le nombre de
+// totalité des publicités actives (déposées par l'administrateur, voir
+// /admin/publicites). Le nombre de
 // cartes affichées et la vitesse du défilement suivent automatiquement le
 // nombre d'annonces en base : une seule annonce reste affichée simplement,
 // sans défilement inutile. Un clic ouvre le détail dans une fenêtre modale,

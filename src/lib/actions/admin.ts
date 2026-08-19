@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { getAdminEquivalentSession } from "@/lib/access";
+import { getAdminSession } from "@/lib/access";
 import {
   setFicheValidation,
   setFicheActive,
@@ -21,13 +21,11 @@ import {
   deleteAbonne,
 } from "@/lib/data";
 
-// Réservé à l'administrateur OU à un propriétaire actif (droits
-// équivalents demandés explicitement par l'utilisateur — voir
-// src/lib/access.ts pour le détail de la vérification).
+// Réservé exclusivement au rôle ADMIN — voir src/lib/access.ts.
 async function requireAdmin() {
-  const session = await getAdminEquivalentSession();
+  const session = await getAdminSession();
   if (!session) {
-    throw new Error("Accès refusé : réservé à l'administrateur ou à un propriétaire actif.");
+    throw new Error("Accès refusé : réservé à l'administrateur.");
   }
   return session;
 }
@@ -72,9 +70,9 @@ export async function adminSetOwnerStatutAction(
 }
 
 // Supprime définitivement un compte propriétaire non conforme (et ses
-// fiches, en cascade). Réservé à l'admin / aux propriétaires actifs comme
-// le reste de ce fichier ; deleteOwner() ne cible que role='PROPRIETAIRE',
-// donc impossible de supprimer le compte administrateur par ce biais.
+// fiches, en cascade). Réservé à l'admin comme le reste de ce fichier ;
+// deleteOwner() ne cible que role='PROPRIETAIRE', donc impossible de
+// supprimer le compte administrateur par ce biais.
 export async function adminDeleteOwnerAction(ownerId: string) {
   await requireAdmin();
   deleteOwner(ownerId);

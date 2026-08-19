@@ -31,8 +31,7 @@ export async function loginProprietaireAction(
   }
   if (user.statut === "EN_ATTENTE") {
     return {
-      error:
-        "Ce compte est en attente de validation par l'administrateur ou par un propriétaire déjà actif.",
+      error: "Ce compte est en attente de validation par l'administrateur.",
     };
   }
   const ok = await verifyPassword(password, user.password_hash);
@@ -69,8 +68,8 @@ export async function registerProprietaireAction(
     email,
     telephone,
     passwordHash,
-    // En attente de validation par l'administrateur ou par un propriétaire
-    // déjà actif (droits équivalents) avant de pouvoir se connecter.
+    // En attente de validation par l'administrateur avant de pouvoir se
+    // connecter.
     statut: "EN_ATTENTE",
   });
 

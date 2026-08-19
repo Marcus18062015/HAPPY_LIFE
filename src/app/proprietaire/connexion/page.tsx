@@ -33,15 +33,13 @@ export default async function OwnerLoginPage({
       )}
       {params.attente === "1" && (
         <p className="mb-4 rounded-xl bg-amber-50 px-3 py-2.5 text-sm text-amber-700 ring-1 ring-amber-200">
-          Ce compte est en attente de validation par l&apos;administrateur ou par un
-          propriétaire déjà actif.
+          Ce compte est en attente de validation par l&apos;administrateur.
         </p>
       )}
       {params.inscrit === "1" && (
         <p className="mb-4 rounded-xl bg-brand-teal/10 px-3 py-2.5 text-sm text-brand-deep ring-1 ring-brand-teal/30">
           Compte créé avec succès. Il doit maintenant être validé par
-          l&apos;administrateur ou par un propriétaire déjà actif avant que vous
-          puissiez vous connecter.
+          l&apos;administrateur avant que vous puissiez vous connecter.
         </p>
       )}
       <OwnerLoginForm />
