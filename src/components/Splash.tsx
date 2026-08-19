@@ -1,4 +1,4 @@
-import LogoMark from "./LogoMark";
+﻿import LogoMark from "./LogoMark";
 import SplashCarousel from "./SplashCarousel";
 import { dismissSplashAction, dismissSplashAndGoAction } from "@/lib/actions/splash";
 
@@ -81,3 +81,4 @@ export default function Splash() {
     </div>
   );
 }
+
