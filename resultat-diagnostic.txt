@@ -1,0 +1,27 @@
+Au caractŠre C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\corriger-carrousel-v2.ps1:73 : 13
++     } catch {
++             ~
+Accolade fermante ®ÿ}ÿ¯ manquante dans le bloc d'instruction ou d‚finition du type manquante.
+Au caractŠre C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\corriger-carrousel-v2.ps1:50 : 71
++ ... nction Ecrire-Fichier($cheminRelatif, $contenu, $signatureAttendue) {
++                                                                         ~
+Accolade fermante ®ÿ}ÿ¯ manquante dans le bloc d'instruction ou d‚finition du type manquante.
+Au caractŠre C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\corriger-carrousel-v2.ps1:75 : 119
++ ...  dans un autre programme ƒ?" fermez-le et relancez le script)" -Foreg ...
++                                                                 ~
+Jeton inattendu ®ÿ)ÿ¯ dans l'expression ou l'instruction.
+Au caractŠre C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\corriger-carrousel-v2.ps1:82 : 24
++         Write-Host "   OK ƒ?" contenu vÇ¸rifiÇ¸ sur le disque." -Fore ...
++                        ~~
+Jeton inattendu ®ÿOKÿ¯ dans l'expression ou l'instruction.
+Au caractŠre C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\corriger-carrousel-v2.ps1:83 : 5
++     } else {
++     ~
+Jeton inattendu ®ÿ}ÿ¯ dans l'expression ou l'instruction.
+Au caractŠre C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\corriger-carrousel-v2.ps1:88 : 1
++ }
++ ~
+Jeton inattendu ®ÿ}ÿ¯ dans l'expression ou l'instruction.
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : MissingEndCurlyBrace
+ 

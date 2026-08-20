@@ -16,7 +16,6 @@ Write-Host ""
 if (-not (Test-Path (Join-Path $racine "package.json"))) {
     Write-Host "ERREUR : impossible de trouver package.json dans ce dossier." -ForegroundColor Red
     Write-Host "Ce script doit être lancé depuis (ou copié dans) le dossier HAPPY_LIFE."
-    Read-Host "Appuyez sur Entrée pour fermer"
     exit 1
 }
 
@@ -903,4 +902,3 @@ Write-Host ""
 Write-Host "=================================================="
 Write-Host "TERMINÉ. Copiez TOUT le texte affiché ci-dessus et envoyez-le si un problème persiste."
 Write-Host "=================================================="
-Read-Host "Appuyez sur Entrée pour fermer"
