@@ -2,22 +2,16 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import type { SplashSlide } from "@/lib/splashSlides";
 
-const INTERVALLE_MS_DEFAUT = 4500;
+export type SplashSlide = {
+  src: string;
+  titre: string;
+  description: string;
+};
 
-export default function SplashCarousel({
-  slides,
-  intervalMs = INTERVALLE_MS_DEFAUT,
-  // "splash" : positionnement pensé pour l'écran de démarrage plein écran.
-  // "compact" : positionnement resserré, pour un bandeau plus bas (ex :
-  // ProfileHero sur la page d'accueil, ~300-360px de hauteur).
-  variant = "splash",
-}: {
-  slides: SplashSlide[];
-  intervalMs?: number;
-  variant?: "splash" | "compact";
-}) {
+const INTERVALLE_MS = 4500;
+
+export default function SplashCarousel({ slides }: { slides: SplashSlide[] }) {
   const [index, setIndex] = useState(0);
   const [detailOuvert, setDetailOuvert] = useState(false);
 
@@ -29,13 +23,12 @@ export default function SplashCarousel({
     if (detailOuvert || slides.length <= 1) return;
     const timer = setInterval(() => {
       setIndex((i) => (i + 1) % slides.length);
-    }, intervalMs);
+    }, INTERVALLE_MS);
     return () => clearInterval(timer);
-  }, [detailOuvert, slides.length, intervalMs]);
+  }, [detailOuvert, slides.length]);
 
   if (slides.length === 0) return null;
   const slideActuel = slides[index];
-  const compact = variant === "compact";
 
   return (
     <>
@@ -67,23 +60,15 @@ export default function SplashCarousel({
         type="button"
         onClick={() => setDetailOuvert(true)}
         aria-label={`En savoir plus : ${slideActuel.titre}`}
-        className={`absolute inset-x-0 top-0 z-10 ${compact ? "bottom-0" : "bottom-20"}`}
+        className="absolute inset-x-0 top-0 bottom-20 z-10"
       />
 
-      <span
-        className={`pointer-events-none absolute z-10 inline-flex items-center gap-1.5 rounded-full bg-black/40 px-3 py-1.5 text-[11px] font-semibold text-white backdrop-blur-sm ${
-          compact ? "bottom-3 right-3" : "bottom-24 right-5"
-        }`}
-      >
+      <span className="pointer-events-none absolute bottom-24 right-5 z-10 inline-flex items-center gap-1.5 rounded-full bg-black/40 px-3 py-1.5 text-[11px] font-semibold text-white backdrop-blur-sm">
         ⓘ En savoir plus
       </span>
 
       {/* Indicateurs de position, cliquables pour naviguer directement */}
-      <div
-        className={`absolute left-1/2 z-10 flex -translate-x-1/2 gap-2 ${
-          compact ? "bottom-3" : "bottom-16"
-        }`}
-      >
+      <div className="absolute bottom-16 left-1/2 z-10 flex -translate-x-1/2 gap-2">
         {slides.map((slide, i) => (
           <button
             key={slide.src}
