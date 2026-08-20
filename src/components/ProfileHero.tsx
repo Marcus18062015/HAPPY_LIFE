@@ -19,6 +19,10 @@ export default function ProfileHero({
   // est vide.
   coverSlides,
   coverIntervalMs,
+  // Bandeau plus grand (utilisé sur la page d'accueil) : les photos
+  // occupent davantage d'espace, avec un dégradé qui ne s'assombrit que
+  // vers le bas — le reste du bandeau garde les photos bien visibles.
+  tallCover = false,
   avatar,
   title,
   verified = false,
@@ -39,6 +43,7 @@ export default function ProfileHero({
   coverAlt?: string;
   coverSlides?: SplashSlide[];
   coverIntervalMs?: number;
+  tallCover?: boolean;
   avatar?: React.ReactNode;
   title: string;
   verified?: boolean;
@@ -57,7 +62,11 @@ export default function ProfileHero({
     // `children`, dont la hauteur varie selon la page) reste toujours
     // lisible en blanc, même après la zone couverte par la photo.
     <section className="relative overflow-hidden bg-[#04141c] text-white">
-      <div className="relative h-[300px] w-full sm:h-[360px]">
+      <div
+        className={`relative w-full ${
+          tallCover ? "h-[570px] sm:h-[684px]" : "h-[300px] sm:h-[360px]"
+        }`}
+      >
         {coverSlides && coverSlides.length > 0 ? (
           <SplashCarousel
             slides={coverSlides}
@@ -74,8 +83,13 @@ export default function ProfileHero({
             className="object-cover"
           />
         )}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#04141c] via-[#04141c]/45 to-[#04141c]/10" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#04141c]/50 via-transparent to-transparent" />
+        {/* Dégradé descendant : les photos restent bien visibles sur la
+            majorité du bandeau, et ne s'assombrissent que progressivement
+            vers le bas, pour fondre dans le contenu qui suit. */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#04141c] from-0% via-[#04141c]/65 via-25% to-transparent to-60%" />
+        {/* Léger voile en haut, juste assez pour garder les icônes (partage,
+            retour…) lisibles sur une photo claire. */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/30 to-transparent" />
 
         {(topLeft || topRight) && (
           <div className="absolute inset-x-0 top-0 flex items-center justify-between px-4 pt-4 sm:px-6">
@@ -97,7 +111,7 @@ export default function ProfileHero({
         )}
 
         <div className="flex items-center gap-1.5">
-          <h1 className="text-2xl font-bold leading-tight sm:text-3xl">{title}</h1>
+          <h1 className="text-2xl font-bold leading-tight tracking-tight sm:text-3xl">{title}</h1>
           {verified && <VerifiedBadgeIcon className="h-5 w-5 shrink-0 sm:h-6 sm:w-6" />}
         </div>
 

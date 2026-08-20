@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import Image from "next/image";
 import type { Fiche } from "@/lib/types";
 import { TYPE_LABELS, noteLabel } from "@/lib/constants";
@@ -20,7 +20,7 @@ export default function FicheCard({
   return (
     <Link
       href={`/fiche/${fiche.id}`}
-      className="group flex h-full flex-col overflow-hidden rounded-[22px] bg-white card-shadow ring-1 ring-slate-100 transition hover:-translate-y-0.5 hover:shadow-lg"
+      className="group flex h-full flex-col overflow-hidden rounded-3xl bg-white card-shadow ring-1 ring-slate-100 transition hover:-translate-y-0.5 hover:shadow-lg"
     >
       <div className={`relative w-full overflow-hidden bg-slate-100 ${compact ? "h-32" : "h-40"}`}>
         {photo ? (

@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import { CalendarIcon, PinIcon } from "./icons";
 import EvenementReserveDialog from "./EvenementReserveDialog";
 
@@ -28,7 +28,7 @@ export default function EvenementCard({
   image?: string | null;
 }) {
   return (
-    <div className="flex w-56 shrink-0 snap-start flex-col overflow-hidden rounded-2xl bg-white card-shadow ring-1 ring-slate-100">
+    <div className="flex w-56 shrink-0 snap-start flex-col overflow-hidden rounded-3xl bg-white card-shadow ring-1 ring-slate-100 transition hover:-translate-y-0.5 hover:shadow-lg">
       <div className="relative h-28 w-full overflow-hidden bg-slate-100">
         {image ? (
           <Image src={image} alt={titre} fill sizes="224px" className="object-cover" />

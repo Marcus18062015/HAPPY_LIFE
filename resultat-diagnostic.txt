@@ -5,20 +5,11 @@ Dossier utilisÇ comme racine du projet :
 
 --- êtape 1/3 : recherche de fichiers en double dans tout le dÇpìt ---
 
-Fichier(s) trouvÇ(s) nommÇ(s) 'SplashCarousel.tsx' :
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\components\SplashCarousel.tsx  (4288 octets, modifiÇ 20/08/2026 12:57:45)
-
-Fichier(s) trouvÇ(s) nommÇ(s) 'Splash.tsx' :
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\components\Splash.tsx  (3489 octets, modifiÇ 20/08/2026 12:57:45)
-
 Fichier(s) trouvÇ(s) nommÇ(s) 'ProfileHero.tsx' :
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\components\ProfileHero.tsx  (5513 octets, modifiÇ 19/08/2026 19:16:39)
-
-Fichier(s) trouvÇ(s) nommÇ(s) 'splashSlides.ts' :
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\lib\splashSlides.ts  (1360 octets, modifiÇ 19/08/2026 19:16:39)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\components\ProfileHero.tsx  (5512 octets, modifiÇ 20/08/2026 13:16:48)
 
 Fichier(s) trouvÇ(s) nommÇ(s) 'page.tsx' :
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\page.tsx  (14488 octets, modifiÇ 19/08/2026 19:16:39)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\page.tsx  (14487 octets, modifiÇ 20/08/2026 13:16:48)
    C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\a-propos\page.tsx  (5090 octets, modifiÇ 16/08/2026 17:31:56)
    C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\favoris\page.tsx  (3095 octets, modifiÇ 16/08/2026 17:31:56)
    C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\fiche\[id]\page.tsx  (8078 octets, modifiÇ 17/08/2026 18:45:16)
@@ -44,20 +35,35 @@ Fichier(s) trouvÇ(s) nommÇ(s) 'page.tsx' :
    C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\(dashboard)\fiches\[id]\page.tsx  (1496 octets, modifiÇ 14/08/2026 16:38:58)
    C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\connexion\page.tsx  (1663 octets, modifiÇ 19/08/2026 09:02:42)
    C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\inscription\page.tsx  (702 octets, modifiÇ 16/08/2026 17:31:56)
-   >>> ATTENTION : plusieurs fichiers portent ce nom ! C'est peut-àtre la cause du probläme.
+   >>> ATTENTION : plusieurs fichiers portent ce nom !
 
---- êtape 2/3 : Çcriture des 5 fichiers corrigÇs ---
+Fichier(s) trouvÇ(s) nommÇ(s) 'globals.css' :
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\globals.css  (2165 octets, modifiÇ 17/08/2026 12:42:20)
 
--> src\lib\splashSlides.ts
-   OK - contenu vÇrifiÇ sur le disque.
+Fichier(s) trouvÇ(s) nommÇ(s) 'FicheCard.tsx' :
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\components\FicheCard.tsx  (2906 octets, modifiÇ 16/08/2026 17:47:46)
 
--> src\components\SplashCarousel.tsx
-   OK - contenu vÇrifiÇ sur le disque.
+Fichier(s) trouvÇ(s) nommÇ(s) 'PromotionCard.tsx' :
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\components\PromotionCard.tsx  (1587 octets, modifiÇ 14/08/2026 20:50:10)
 
--> src\components\Splash.tsx
-   OK - contenu vÇrifiÇ sur le disque.
+Fichier(s) trouvÇ(s) nommÇ(s) 'EvenementCard.tsx' :
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\components\EvenementCard.tsx  (1776 octets, modifiÇ 16/08/2026 17:31:56)
+
+--- êtape 2/3 : Çcriture des fichiers corrigÇs ---
 
 -> src\components\ProfileHero.tsx
+   OK - contenu vÇrifiÇ sur le disque.
+
+-> src\components\FicheCard.tsx
+   OK - contenu vÇrifiÇ sur le disque.
+
+-> src\components\PromotionCard.tsx
+   OK - contenu vÇrifiÇ sur le disque.
+
+-> src\components\EvenementCard.tsx
+   OK - contenu vÇrifiÇ sur le disque.
+
+-> src\app\globals.css
    OK - contenu vÇrifiÇ sur le disque.
 
 -> src\app\(public)\page.tsx
@@ -66,7 +72,7 @@ Fichier(s) trouvÇ(s) nommÇ(s) 'page.tsx' :
 --- êtape 3/3 : nouvelle recherche de doublons apräs Çcriture ---
 
 'page.tsx' existe toujours en plusieurs exemplaires :
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\page.tsx  (14487 octets, modifiÇ 20/08/2026 13:16:48)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\page.tsx  (14505 octets, modifiÇ 20/08/2026 15:00:35)
    C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\a-propos\page.tsx  (5090 octets, modifiÇ 16/08/2026 17:31:56)
    C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\favoris\page.tsx  (3095 octets, modifiÇ 16/08/2026 17:31:56)
    C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\fiche\[id]\page.tsx  (8078 octets, modifiÇ 17/08/2026 18:45:16)

@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { TagIcon } from "./icons";
 
 export default function PromotionCard({
@@ -21,7 +21,7 @@ export default function PromotionCard({
   return (
     <Link
       href={`/fiche/${ficheId}`}
-      className="flex w-64 shrink-0 snap-start flex-col gap-2 rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50 p-4 ring-1 ring-amber-100 transition hover:-translate-y-0.5 hover:shadow-md"
+      className="flex w-64 shrink-0 snap-start flex-col gap-2 rounded-3xl bg-gradient-to-br from-amber-50 to-orange-50 p-4 ring-1 ring-amber-100 transition hover:-translate-y-0.5 hover:shadow-md"
     >
       <div className="flex items-start justify-between gap-2">
         <span className="flex items-center gap-1 rounded-full bg-orange-500 px-2.5 py-1 text-xs font-bold text-white">
