@@ -1,4 +1,38 @@
-﻿import Image from "next/image";
+﻿$ErrorActionPreference = "Stop"
+
+$racine = $PSScriptRoot
+if (-not (Test-Path (Join-Path $racine "package.json"))) {
+    $racine = "C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE"
+}
+
+Write-Host "=================================================="
+Write-Host "Dossier utilisé comme racine du projet :"
+Write-Host "  $racine"
+Write-Host "=================================================="
+Write-Host ""
+
+if (-not (Test-Path (Join-Path $racine "package.json"))) {
+    Write-Host "ERREUR : impossible de trouver package.json dans ce dossier." -ForegroundColor Red
+    Write-Host "Ce script doit être lancé depuis (ou copié dans) le dossier HAPPY_LIFE."
+    exit 1
+}
+
+$chemin = Join-Path $racine "src\components\ProfileHero.tsx"
+
+if (Test-Path $chemin) {
+    try {
+        $item = Get-Item $chemin -Force
+        if ($item.IsReadOnly) {
+            Write-Host "(le fichier était en lecture seule -> je retire cette protection)"
+            Set-ItemProperty -Path $chemin -Name IsReadOnly -Value $false
+        }
+    } catch {
+        Write-Host "Avertissement : impossible de lire les attributs ($_)" -ForegroundColor Yellow
+    }
+}
+
+$profileHero = @'
+import Image from "next/image";
 import Link from "next/link";
 import { VerifiedBadgeIcon } from "./icons";
 import SplashCarousel from "./SplashCarousel";
@@ -196,3 +230,27 @@ export function HeroPillButton({
     </button>
   );
 }
+'@
+
+Write-Host "-> src\components\ProfileHero.tsx"
+try {
+    Set-Content -Path $chemin -Value $profileHero -Encoding UTF8 -Force
+} catch {
+    Write-Host "   *** ÉCHEC DE L'ÉCRITURE : $_" -ForegroundColor Red
+    Write-Host "   (le fichier est probablement ouvert dans un autre programme — fermez-le et relancez le script)" -ForegroundColor Red
+    exit 1
+}
+
+Start-Sleep -Milliseconds 200
+$verif = Get-Content -Path $chemin -Raw -ErrorAction SilentlyContinue
+if ($verif -and $verif.Contains("drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]")) {
+    Write-Host "   OK — contenu vérifié sur le disque." -ForegroundColor Green
+} else {
+    Write-Host "   *** ÉCHEC DE LA VÉRIFICATION." -ForegroundColor Red
+    Write-Host "   Taille actuelle sur disque : $((Get-Item $chemin).Length) octets" -ForegroundColor Red
+}
+
+Write-Host ""
+Write-Host "=================================================="
+Write-Host "TERMINÉ. Copiez TOUT le texte affiché ci-dessus et envoyez-le si un problème persiste."
+Write-Host "=================================================="
