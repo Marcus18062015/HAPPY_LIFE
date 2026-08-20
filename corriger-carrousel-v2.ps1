@@ -1,4 +1,4 @@
-$ErrorActionPreference = "Stop"
+﻿$ErrorActionPreference = "Stop"
 
 # Racine du dépôt (dossier où se trouve ce script -> HAPPY_LIFE)
 $racine = $PSScriptRoot

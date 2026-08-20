@@ -33,4 +33,3 @@ export const SPLASH_SLIDES: SplashSlide[] = [
       "Promenades, esplanades et lieux de rencontre pensés pour le bien-être des habitants voient le jour le long du littoral.",
   },
 ];
-

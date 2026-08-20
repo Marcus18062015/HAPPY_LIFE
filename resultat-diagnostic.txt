@@ -1,27 +1,98 @@
-Au caractäre C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\corriger-carrousel-v2.ps1:73 : 13
-+     } catch {
-+             ~
-Accolade fermante Æˇ}ˇØ manquante dans le bloc d'instruction ou dÇfinition du type manquante.
-Au caractäre C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\corriger-carrousel-v2.ps1:50 : 71
-+ ... nction Ecrire-Fichier($cheminRelatif, $contenu, $signatureAttendue) {
-+                                                                         ~
-Accolade fermante Æˇ}ˇØ manquante dans le bloc d'instruction ou dÇfinition du type manquante.
-Au caractäre C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\corriger-carrousel-v2.ps1:75 : 119
-+ ...  dans un autre programme É?" fermez-le et relancez le script)" -Foreg ...
-+                                                                 ~
-Jeton inattendu Æˇ)ˇØ dans l'expression ou l'instruction.
-Au caractäre C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\corriger-carrousel-v2.ps1:82 : 24
-+         Write-Host "   OK É?" contenu v«∏rifi«∏ sur le disque." -Fore ...
-+                        ~~
-Jeton inattendu ÆˇOKˇØ dans l'expression ou l'instruction.
-Au caractäre C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\corriger-carrousel-v2.ps1:83 : 5
-+     } else {
-+     ~
-Jeton inattendu Æˇ}ˇØ dans l'expression ou l'instruction.
-Au caractäre C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\corriger-carrousel-v2.ps1:88 : 1
-+ }
-+ ~
-Jeton inattendu Æˇ}ˇØ dans l'expression ou l'instruction.
-    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
-    + FullyQualifiedErrorId : MissingEndCurlyBrace
- 
+==================================================
+Dossier utilisÇ comme racine du projet :
+  C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE
+==================================================
+
+--- êtape 1/3 : recherche de fichiers en double dans tout le dÇpìt ---
+
+Fichier(s) trouvÇ(s) nommÇ(s) 'SplashCarousel.tsx' :
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\components\SplashCarousel.tsx  (4288 octets, modifiÇ 20/08/2026 12:57:45)
+
+Fichier(s) trouvÇ(s) nommÇ(s) 'Splash.tsx' :
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\components\Splash.tsx  (3489 octets, modifiÇ 20/08/2026 12:57:45)
+
+Fichier(s) trouvÇ(s) nommÇ(s) 'ProfileHero.tsx' :
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\components\ProfileHero.tsx  (5513 octets, modifiÇ 19/08/2026 19:16:39)
+
+Fichier(s) trouvÇ(s) nommÇ(s) 'splashSlides.ts' :
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\lib\splashSlides.ts  (1360 octets, modifiÇ 19/08/2026 19:16:39)
+
+Fichier(s) trouvÇ(s) nommÇ(s) 'page.tsx' :
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\page.tsx  (14488 octets, modifiÇ 19/08/2026 19:16:39)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\a-propos\page.tsx  (5090 octets, modifiÇ 16/08/2026 17:31:56)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\favoris\page.tsx  (3095 octets, modifiÇ 16/08/2026 17:31:56)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\fiche\[id]\page.tsx  (8078 octets, modifiÇ 17/08/2026 18:45:16)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\mes-reservations\page.tsx  (2088 octets, modifiÇ 16/08/2026 17:31:56)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\profil\page.tsx  (3246 octets, modifiÇ 16/08/2026 17:31:56)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\proprietaires\[id]\page.tsx  (4913 octets, modifiÇ 16/08/2026 17:48:12)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\recherche\page.tsx  (6893 octets, modifiÇ 16/08/2026 17:48:48)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\page.tsx  (2260 octets, modifiÇ 16/08/2026 17:31:56)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\abonnes\page.tsx  (2560 octets, modifiÇ 16/08/2026 14:40:16)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\avis\page.tsx  (3848 octets, modifiÇ 14/08/2026 20:54:18)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\comptes\page.tsx  (5758 octets, modifiÇ 19/08/2026 09:02:42)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\demandes\page.tsx  (3293 octets, modifiÇ 16/08/2026 17:31:56)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\evenements\page.tsx  (4760 octets, modifiÇ 16/08/2026 17:31:56)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\fiches\page.tsx  (1931 octets, modifiÇ 14/08/2026 16:40:02)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\mot-de-passe\page.tsx  (620 octets, modifiÇ 17/08/2026 09:35:08)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\promotions\page.tsx  (5866 octets, modifiÇ 14/08/2026 20:54:34)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\publicites\page.tsx  (4624 octets, modifiÇ 17/08/2026 13:20:06)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\connexion\page.tsx  (394 octets, modifiÇ 16/08/2026 17:31:56)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\(dashboard)\page.tsx  (4057 octets, modifiÇ 16/08/2026 17:31:56)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\(dashboard)\abonnement\page.tsx  (4569 octets, modifiÇ 17/08/2026 18:46:28)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\(dashboard)\demandes\page.tsx  (2825 octets, modifiÇ 16/08/2026 17:31:56)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\(dashboard)\fiches\nouvelle\page.tsx  (715 octets, modifiÇ 16/08/2026 17:31:56)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\(dashboard)\fiches\[id]\page.tsx  (1496 octets, modifiÇ 14/08/2026 16:38:58)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\connexion\page.tsx  (1663 octets, modifiÇ 19/08/2026 09:02:42)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\inscription\page.tsx  (702 octets, modifiÇ 16/08/2026 17:31:56)
+   >>> ATTENTION : plusieurs fichiers portent ce nom ! C'est peut-àtre la cause du probläme.
+
+--- êtape 2/3 : Çcriture des 5 fichiers corrigÇs ---
+
+-> src\lib\splashSlides.ts
+   OK - contenu vÇrifiÇ sur le disque.
+
+-> src\components\SplashCarousel.tsx
+   OK - contenu vÇrifiÇ sur le disque.
+
+-> src\components\Splash.tsx
+   OK - contenu vÇrifiÇ sur le disque.
+
+-> src\components\ProfileHero.tsx
+   OK - contenu vÇrifiÇ sur le disque.
+
+-> src\app\(public)\page.tsx
+   OK - contenu vÇrifiÇ sur le disque.
+
+--- êtape 3/3 : nouvelle recherche de doublons apräs Çcriture ---
+
+'page.tsx' existe toujours en plusieurs exemplaires :
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\page.tsx  (14487 octets, modifiÇ 20/08/2026 13:16:48)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\a-propos\page.tsx  (5090 octets, modifiÇ 16/08/2026 17:31:56)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\favoris\page.tsx  (3095 octets, modifiÇ 16/08/2026 17:31:56)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\fiche\[id]\page.tsx  (8078 octets, modifiÇ 17/08/2026 18:45:16)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\mes-reservations\page.tsx  (2088 octets, modifiÇ 16/08/2026 17:31:56)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\profil\page.tsx  (3246 octets, modifiÇ 16/08/2026 17:31:56)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\proprietaires\[id]\page.tsx  (4913 octets, modifiÇ 16/08/2026 17:48:12)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\recherche\page.tsx  (6893 octets, modifiÇ 16/08/2026 17:48:48)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\page.tsx  (2260 octets, modifiÇ 16/08/2026 17:31:56)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\abonnes\page.tsx  (2560 octets, modifiÇ 16/08/2026 14:40:16)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\avis\page.tsx  (3848 octets, modifiÇ 14/08/2026 20:54:18)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\comptes\page.tsx  (5758 octets, modifiÇ 19/08/2026 09:02:42)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\demandes\page.tsx  (3293 octets, modifiÇ 16/08/2026 17:31:56)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\evenements\page.tsx  (4760 octets, modifiÇ 16/08/2026 17:31:56)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\fiches\page.tsx  (1931 octets, modifiÇ 14/08/2026 16:40:02)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\mot-de-passe\page.tsx  (620 octets, modifiÇ 17/08/2026 09:35:08)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\promotions\page.tsx  (5866 octets, modifiÇ 14/08/2026 20:54:34)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\publicites\page.tsx  (4624 octets, modifiÇ 17/08/2026 13:20:06)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\connexion\page.tsx  (394 octets, modifiÇ 16/08/2026 17:31:56)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\(dashboard)\page.tsx  (4057 octets, modifiÇ 16/08/2026 17:31:56)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\(dashboard)\abonnement\page.tsx  (4569 octets, modifiÇ 17/08/2026 18:46:28)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\(dashboard)\demandes\page.tsx  (2825 octets, modifiÇ 16/08/2026 17:31:56)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\(dashboard)\fiches\nouvelle\page.tsx  (715 octets, modifiÇ 16/08/2026 17:31:56)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\(dashboard)\fiches\[id]\page.tsx  (1496 octets, modifiÇ 14/08/2026 16:38:58)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\connexion\page.tsx  (1663 octets, modifiÇ 19/08/2026 09:02:42)
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\inscription\page.tsx  (702 octets, modifiÇ 16/08/2026 17:31:56)
+
+==================================================
+TERMINê. Copiez TOUT le texte affichÇ ci-dessus et envoyez-le si un probläme persiste.
+==================================================

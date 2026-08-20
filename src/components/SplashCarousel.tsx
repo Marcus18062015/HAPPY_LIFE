@@ -2,16 +2,22 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import type { SplashSlide } from "@/lib/splashSlides";
 
-export type SplashSlide = {
-  src: string;
-  titre: string;
-  description: string;
-};
+const INTERVALLE_MS_DEFAUT = 4500;
 
-const INTERVALLE_MS = 4500;
-
-export default function SplashCarousel({ slides }: { slides: SplashSlide[] }) {
+export default function SplashCarousel({
+  slides,
+  intervalMs = INTERVALLE_MS_DEFAUT,
+  // "splash" : positionnement pensé pour l'écran de démarrage plein écran.
+  // "compact" : positionnement resserré, pour un bandeau plus bas (ex :
+  // ProfileHero sur la page d'accueil, ~300-360px de hauteur).
+  variant = "splash",
+}: {
+  slides: SplashSlide[];
+  intervalMs?: number;
+  variant?: "splash" | "compact";
+}) {
   const [index, setIndex] = useState(0);
   const [detailOuvert, setDetailOuvert] = useState(false);
 
@@ -23,12 +29,13 @@ export default function SplashCarousel({ slides }: { slides: SplashSlide[] }) {
     if (detailOuvert || slides.length <= 1) return;
     const timer = setInterval(() => {
       setIndex((i) => (i + 1) % slides.length);
-    }, INTERVALLE_MS);
+    }, intervalMs);
     return () => clearInterval(timer);
-  }, [detailOuvert, slides.length]);
+  }, [detailOuvert, slides.length, intervalMs]);
 
   if (slides.length === 0) return null;
   const slideActuel = slides[index];
+  const compact = variant === "compact";
 
   return (
     <>
@@ -60,15 +67,23 @@ export default function SplashCarousel({ slides }: { slides: SplashSlide[] }) {
         type="button"
         onClick={() => setDetailOuvert(true)}
         aria-label={`En savoir plus : ${slideActuel.titre}`}
-        className="absolute inset-x-0 top-0 bottom-20 z-10"
+        className={`absolute inset-x-0 top-0 z-10 ${compact ? "bottom-0" : "bottom-20"}`}
       />
 
-      <span className="pointer-events-none absolute bottom-24 right-5 z-10 inline-flex items-center gap-1.5 rounded-full bg-black/40 px-3 py-1.5 text-[11px] font-semibold text-white backdrop-blur-sm">
+      <span
+        className={`pointer-events-none absolute z-10 inline-flex items-center gap-1.5 rounded-full bg-black/40 px-3 py-1.5 text-[11px] font-semibold text-white backdrop-blur-sm ${
+          compact ? "bottom-3 right-3" : "bottom-24 right-5"
+        }`}
+      >
         ⓘ En savoir plus
       </span>
 
       {/* Indicateurs de position, cliquables pour naviguer directement */}
-      <div className="absolute bottom-16 left-1/2 z-10 flex -translate-x-1/2 gap-2">
+      <div
+        className={`absolute left-1/2 z-10 flex -translate-x-1/2 gap-2 ${
+          compact ? "bottom-3" : "bottom-16"
+        }`}
+      >
         {slides.map((slide, i) => (
           <button
             key={slide.src}
@@ -124,4 +139,3 @@ export default function SplashCarousel({ slides }: { slides: SplashSlide[] }) {
     </>
   );
 }
-
