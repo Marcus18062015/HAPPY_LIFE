@@ -3,102 +3,20 @@ Dossier utilisÇ comme racine du projet :
   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE
 ==================================================
 
---- êtape 1/3 : recherche de fichiers en double dans tout le dÇpìt ---
-
-Fichier(s) trouvÇ(s) nommÇ(s) 'ProfileHero.tsx' :
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\components\ProfileHero.tsx  (6241 octets, modifiÇ 20/08/2026 15:08:32)
-
-Fichier(s) trouvÇ(s) nommÇ(s) 'page.tsx' :
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\page.tsx  (14505 octets, modifiÇ 20/08/2026 15:08:33)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\a-propos\page.tsx  (5090 octets, modifiÇ 16/08/2026 17:31:56)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\favoris\page.tsx  (3095 octets, modifiÇ 16/08/2026 17:31:56)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\fiche\[id]\page.tsx  (8078 octets, modifiÇ 17/08/2026 18:45:16)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\mes-reservations\page.tsx  (2088 octets, modifiÇ 16/08/2026 17:31:56)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\profil\page.tsx  (3246 octets, modifiÇ 16/08/2026 17:31:56)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\proprietaires\[id]\page.tsx  (4913 octets, modifiÇ 16/08/2026 17:48:12)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\recherche\page.tsx  (6893 octets, modifiÇ 16/08/2026 17:48:48)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\page.tsx  (2260 octets, modifiÇ 16/08/2026 17:31:56)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\abonnes\page.tsx  (2560 octets, modifiÇ 16/08/2026 14:40:16)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\avis\page.tsx  (3848 octets, modifiÇ 14/08/2026 20:54:18)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\comptes\page.tsx  (5758 octets, modifiÇ 19/08/2026 09:02:42)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\demandes\page.tsx  (3293 octets, modifiÇ 16/08/2026 17:31:56)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\evenements\page.tsx  (4760 octets, modifiÇ 16/08/2026 17:31:56)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\fiches\page.tsx  (1931 octets, modifiÇ 14/08/2026 16:40:02)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\mot-de-passe\page.tsx  (620 octets, modifiÇ 17/08/2026 09:35:08)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\promotions\page.tsx  (5866 octets, modifiÇ 14/08/2026 20:54:34)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\publicites\page.tsx  (4624 octets, modifiÇ 17/08/2026 13:20:06)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\connexion\page.tsx  (394 octets, modifiÇ 16/08/2026 17:31:56)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\(dashboard)\page.tsx  (4057 octets, modifiÇ 16/08/2026 17:31:56)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\(dashboard)\abonnement\page.tsx  (4569 octets, modifiÇ 17/08/2026 18:46:28)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\(dashboard)\demandes\page.tsx  (2825 octets, modifiÇ 16/08/2026 17:31:56)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\(dashboard)\fiches\nouvelle\page.tsx  (715 octets, modifiÇ 16/08/2026 17:31:56)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\(dashboard)\fiches\[id]\page.tsx  (1496 octets, modifiÇ 14/08/2026 16:38:58)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\connexion\page.tsx  (1663 octets, modifiÇ 19/08/2026 09:02:42)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\inscription\page.tsx  (702 octets, modifiÇ 16/08/2026 17:31:56)
-   >>> ATTENTION : plusieurs fichiers portent ce nom !
-
-Fichier(s) trouvÇ(s) nommÇ(s) 'globals.css' :
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\globals.css  (2170 octets, modifiÇ 20/08/2026 15:08:32)
-
-Fichier(s) trouvÇ(s) nommÇ(s) 'FicheCard.tsx' :
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\components\FicheCard.tsx  (2907 octets, modifiÇ 20/08/2026 15:08:32)
-
-Fichier(s) trouvÇ(s) nommÇ(s) 'PromotionCard.tsx' :
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\components\PromotionCard.tsx  (1591 octets, modifiÇ 20/08/2026 15:08:32)
-
-Fichier(s) trouvÇ(s) nommÇ(s) 'EvenementCard.tsx' :
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\components\EvenementCard.tsx  (1830 octets, modifiÇ 20/08/2026 15:08:32)
-
---- êtape 2/3 : Çcriture des fichiers corrigÇs ---
-
--> src\components\ProfileHero.tsx
-   OK - contenu vÇrifiÇ sur le disque.
-
--> src\components\FicheCard.tsx
-   OK - contenu vÇrifiÇ sur le disque.
-
--> src\components\PromotionCard.tsx
-   OK - contenu vÇrifiÇ sur le disque.
-
--> src\components\EvenementCard.tsx
-   OK - contenu vÇrifiÇ sur le disque.
+--- Contenu actuel de globals.css (les 3 premiäres lignes) ---
+  @import "tailwindcss";
+  
+  :root {
 
 -> src\app\globals.css
-   OK - contenu vÇrifiÇ sur le disque.
-
--> src\app\(public)\page.tsx
-   OK - contenu vÇrifiÇ sur le disque.
-
---- êtape 3/3 : nouvelle recherche de doublons apräs Çcriture ---
-
-'page.tsx' existe toujours en plusieurs exemplaires :
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\page.tsx  (14505 octets, modifiÇ 20/08/2026 15:14:48)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\a-propos\page.tsx  (5090 octets, modifiÇ 16/08/2026 17:31:56)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\favoris\page.tsx  (3095 octets, modifiÇ 16/08/2026 17:31:56)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\fiche\[id]\page.tsx  (8078 octets, modifiÇ 17/08/2026 18:45:16)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\mes-reservations\page.tsx  (2088 octets, modifiÇ 16/08/2026 17:31:56)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\profil\page.tsx  (3246 octets, modifiÇ 16/08/2026 17:31:56)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\proprietaires\[id]\page.tsx  (4913 octets, modifiÇ 16/08/2026 17:48:12)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\(public)\recherche\page.tsx  (6893 octets, modifiÇ 16/08/2026 17:48:48)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\page.tsx  (2260 octets, modifiÇ 16/08/2026 17:31:56)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\abonnes\page.tsx  (2560 octets, modifiÇ 16/08/2026 14:40:16)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\avis\page.tsx  (3848 octets, modifiÇ 14/08/2026 20:54:18)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\comptes\page.tsx  (5758 octets, modifiÇ 19/08/2026 09:02:42)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\demandes\page.tsx  (3293 octets, modifiÇ 16/08/2026 17:31:56)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\evenements\page.tsx  (4760 octets, modifiÇ 16/08/2026 17:31:56)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\fiches\page.tsx  (1931 octets, modifiÇ 14/08/2026 16:40:02)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\mot-de-passe\page.tsx  (620 octets, modifiÇ 17/08/2026 09:35:08)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\promotions\page.tsx  (5866 octets, modifiÇ 14/08/2026 20:54:34)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\(dashboard)\publicites\page.tsx  (4624 octets, modifiÇ 17/08/2026 13:20:06)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\admin\connexion\page.tsx  (394 octets, modifiÇ 16/08/2026 17:31:56)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\(dashboard)\page.tsx  (4057 octets, modifiÇ 16/08/2026 17:31:56)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\(dashboard)\abonnement\page.tsx  (4569 octets, modifiÇ 17/08/2026 18:46:28)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\(dashboard)\demandes\page.tsx  (2825 octets, modifiÇ 16/08/2026 17:31:56)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\(dashboard)\fiches\nouvelle\page.tsx  (715 octets, modifiÇ 16/08/2026 17:31:56)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\(dashboard)\fiches\[id]\page.tsx  (1496 octets, modifiÇ 14/08/2026 16:38:58)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\connexion\page.tsx  (1663 octets, modifiÇ 19/08/2026 09:02:42)
-   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\src\app\proprietaire\inscription\page.tsx  (702 octets, modifiÇ 16/08/2026 17:31:56)
+   OK - le fichier commence bien par le code source attendu.
 
 ==================================================
+IMPORTANT : ne lancez PAS le programme d'installation local
+(1Installer.bat / 2-Lancer_Happy_Life.bat) avant d'avoir fait
+le Commit + Push dans GitHub Desktop. Ce programme semble
+rÇÇcrire ce fichier avec une version compilÇe, ce qui casse
+le dÇploiement en ligne si cette version est ensuite envoyÇe.
+==================================================
+
 TERMINê. Copiez TOUT le texte affichÇ ci-dessus et envoyez-le si un probläme persiste.
-==================================================
