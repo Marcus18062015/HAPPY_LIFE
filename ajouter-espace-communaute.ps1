@@ -6,6 +6,7 @@ if (-not (Test-Path (Join-Path $racine "package.json"))) {
 }
 
 Write-Host "=================================================="
+Write-Host "Script communaute - VERSION 2 (avec correctif dossiers)"
 Write-Host "Dossier utilise comme racine du projet :"
 Write-Host "  $racine"
 Write-Host "=================================================="
@@ -30,7 +31,7 @@ function Ecrire-Fichier {
     $dossier = Split-Path -Path $chemin -Parent
 
     if (-not (Test-Path -LiteralPath $dossier)) {
-        New-Item -ItemType Directory -LiteralPath $dossier -Force | Out-Null
+        [System.IO.Directory]::CreateDirectory($dossier) | Out-Null
     }
 
     if (Test-Path -LiteralPath $chemin) {

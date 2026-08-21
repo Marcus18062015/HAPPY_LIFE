@@ -1,9 +1,17 @@
+﻿"use client";
+
+import { usePathname } from "next/navigation";
 import { WhatsAppIcon } from "./icons";
 import { WHATSAPP_URL } from "@/lib/social";
 
 // Bouton flottant WhatsApp, visible sur tout le site public — contact
-// rapide vers le numéro Happy Life (+241 77 00 00 00).
+// rapide vers le numéro Happy Life (+241 77 00 00 00). Masqué dans une
+// conversation communauté : il chevauche et bloque sinon les clics sur le
+// bouton d'envoi du champ de message, fixé lui aussi en bas de l'écran.
 export default function WhatsAppFloatButton() {
+  const pathname = usePathname();
+  if (pathname.startsWith("/communaute/messages/")) return null;
+
   return (
     <a
       href={WHATSAPP_URL}
@@ -16,3 +24,4 @@ export default function WhatsAppFloatButton() {
     </a>
   );
 }
+

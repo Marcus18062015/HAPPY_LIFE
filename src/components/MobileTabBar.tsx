@@ -1,8 +1,8 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { HomeIcon, CalendarIcon, HeartIcon, UserIcon } from "./icons";
+import { HomeIcon, CalendarIcon, HeartIcon, UserIcon, UsersIcon } from "./icons";
 
 const TABS = [
   { href: "/", label: "Accueil", icon: HomeIcon, match: (p: string) => p === "/" },
@@ -11,6 +11,12 @@ const TABS = [
     label: "Réservations",
     icon: CalendarIcon,
     match: (p: string) => p.startsWith("/mes-reservations"),
+  },
+  {
+    href: "/communaute",
+    label: "Communauté",
+    icon: UsersIcon,
+    match: (p: string) => p.startsWith("/communaute"),
   },
   {
     href: "/favoris",
@@ -53,3 +59,4 @@ export default function MobileTabBar() {
     </nav>
   );
 }
+

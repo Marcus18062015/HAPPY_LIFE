@@ -1,4 +1,4 @@
-type IconProps = { className?: string };
+﻿type IconProps = { className?: string };
 
 const base = "none";
 
@@ -222,3 +222,33 @@ export function MegaphoneIcon({ className = "h-5 w-5" }: IconProps) {
     </svg>
   );
 }
+
+// Espace communautaire (mur + messagerie) — deux silhouettes.
+export function UsersIcon({ className = "h-5 w-5" }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill={base} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <circle cx="9" cy="8" r="3.2" />
+      <path d="M3.5 20a5.5 5.5 0 0 1 11 0" />
+      <path d="M16 4.5a3.2 3.2 0 0 1 0 6.4M20.5 20a5 5 0 0 0-4.5-6" />
+    </svg>
+  );
+}
+
+export function ChatIcon({ className = "h-5 w-5" }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill={base} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M4 5h16v11H8l-4 4V5Z" />
+    </svg>
+  );
+}
+
+export function ImageIcon({ className = "h-5 w-5" }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill={base} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <circle cx="8.5" cy="9.5" r="1.5" />
+      <path d="m21 15-5-5-9 9" />
+    </svg>
+  );
+}
+

@@ -1,4 +1,5 @@
 ==================================================
+Script communaute - VERSION 2 (avec correctif dossiers)
 Dossier utilise comme racine du projet :
   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE
 ==================================================
@@ -15,10 +16,50 @@ Dossier utilise comme racine du projet :
    OK
 -> src\lib\actions\community.ts
    OK
-New-Item : Impossible de trouver un paramŠtre correspondant au nom ®ÿLiteralPathÿ¯.
-Au caractŠre C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\ajouter-espace-communaute.ps1:33 : 38
-+         New-Item -ItemType Directory -LiteralPath $dossier -Force | O ...
-+                                      ~~~~~~~~~~~~
-    + CategoryInfo          : InvalidArgument : (:) [New-Item], ParentContainsErrorRecordException
-    + FullyQualifiedErrorId : NamedParameterNotFound,Microsoft.PowerShell.Commands.NewItemCommand
- 
+-> src\app\api\communaute\photo\[...segments]\route.ts
+   OK
+-> src\app\api\communaute\partage\[postId]\route.ts
+   OK
+-> src\components\icons.tsx
+   OK
+-> src\components\MobileTabBar.tsx
+   OK
+-> src\components\WhatsAppFloatButton.tsx
+   OK
+-> src\components\ShareCommunityPostButton.tsx
+   OK
+-> src\components\CommunityPostCard.tsx
+   OK
+-> src\components\forms\CommunityRegisterForm.tsx
+   OK
+-> src\components\forms\CommunityVerifyForm.tsx
+   OK
+-> src\components\forms\CommunityLoginForm.tsx
+   OK
+-> src\components\forms\CommunityPostForm.tsx
+   OK
+-> src\components\forms\CommunityCommentForm.tsx
+   OK
+-> src\components\forms\CommunityMessageForm.tsx
+   OK
+-> src\app\(public)\communaute\page.tsx
+   OK
+-> src\app\(public)\communaute\inscription\page.tsx
+   OK
+-> src\app\(public)\communaute\inscription\verification\page.tsx
+   OK
+-> src\app\(public)\communaute\connexion\page.tsx
+   OK
+-> src\app\(public)\communaute\messages\page.tsx
+   OK
+-> src\app\(public)\communaute\messages\[conversationId]\page.tsx
+   OK
+
+==================================================
+TERMINE - 25 / 25 fichiers corrects sur le disque.
+
+IMPORTANT : ce script n'a pas touche votre fichier .gitignore.
+Ajoutez-y vous-meme, sur une nouvelle ligne, ce texte exact :
+  data/uploads/
+(juste apres la ligne 'data/*.db') pour eviter d'envoyer vos photos de test sur GitHub. Ce n'est pas obligatoire pour que l'application fonctionne.
+==================================================
