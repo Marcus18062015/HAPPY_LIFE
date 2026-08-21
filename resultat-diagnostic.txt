@@ -1,14 +1,24 @@
 ==================================================
-Dossier utilis‚ comme racine du projet :
+Dossier utilise comme racine du projet :
   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE
 ==================================================
 
--> src\app\(public)\page.tsx
-   OK - contenu v‚rifi‚ sur le disque.
--> src\components\ProfileHero.tsx
-   OK - contenu v‚rifi‚ sur le disque.
-
-==================================================
-TERMIN - les deux fichiers sont corrects sur le disque.
-Copiez TOUT le texte affich‚ ci-dessus et envoyez-le si un problŠme persiste.
-==================================================
+-> src\lib\db.ts
+   OK
+-> src\lib\types.ts
+   OK
+-> src\lib\community.ts
+   OK
+-> src\lib\communityAuth.ts
+   OK
+-> src\lib\communityUploads.ts
+   OK
+-> src\lib\actions\community.ts
+   OK
+New-Item : Impossible de trouver un paramŠtre correspondant au nom ®ÿLiteralPathÿ¯.
+Au caractŠre C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE\ajouter-espace-communaute.ps1:33 : 38
++         New-Item -ItemType Directory -LiteralPath $dossier -Force | O ...
++                                      ~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument : (:) [New-Item], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : NamedParameterNotFound,Microsoft.PowerShell.Commands.NewItemCommand
+ 

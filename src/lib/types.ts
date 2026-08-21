@@ -1,4 +1,4 @@
-export type Role = "ADMIN" | "PROPRIETAIRE";
+﻿export type Role = "ADMIN" | "PROPRIETAIRE";
 export type StatutCompte = "EN_ATTENTE" | "ACTIF" | "SUSPENDU";
 export type TypeFiche = "PISCINE" | "APPARTEMENT";
 export type StatutValidation = "EN_ATTENTE" | "VALIDEE" | "REFUSEE";
@@ -161,3 +161,76 @@ export function toFiche(r: FicheRecord): Fiche {
     active: !!r.active,
   };
 }
+
+// ---------- Espace communautaire ----------
+
+export interface CommunityMemberRecord {
+  id: string;
+  nom: string;
+  telephone: string | null;
+  whatsapp: string | null;
+  email: string | null;
+  password_hash: string;
+  avatar: string | null;
+  verifie: number; // 0 | 1
+  code_verification: string | null;
+  code_expire_at: string | null;
+  created_at: string;
+}
+
+// Profil public d'un membre — jamais le téléphone/WhatsApp/email/mot de
+// passe, mêmes règles de confidentialité que OwnerPublicProfile.
+export interface CommunityMemberPublicProfile {
+  id: string;
+  nom: string;
+  avatar: string | null;
+  created_at: string;
+}
+
+export interface CommunityPostRecord {
+  id: string;
+  auteur_id: string;
+  photo: string;
+  legende: string;
+  created_at: string;
+}
+
+export interface CommunityPost extends CommunityPostRecord {
+  auteur: CommunityMemberPublicProfile | null;
+  nbCommentaires: number;
+}
+
+export interface CommunityCommentRecord {
+  id: string;
+  post_id: string;
+  auteur_id: string;
+  texte: string;
+  created_at: string;
+}
+
+export interface CommunityComment extends CommunityCommentRecord {
+  auteur: CommunityMemberPublicProfile | null;
+}
+
+export interface CommunityConversationRecord {
+  id: string;
+  membre_1_id: string;
+  membre_2_id: string;
+  created_at: string;
+}
+
+export interface CommunityConversation extends CommunityConversationRecord {
+  autreMembre: CommunityMemberPublicProfile | null;
+  dernierMessage: CommunityMessageRecord | null;
+  nonLus: number;
+}
+
+export interface CommunityMessageRecord {
+  id: string;
+  conversation_id: string;
+  expediteur_id: string;
+  texte: string;
+  lu: number; // 0 | 1
+  created_at: string;
+}
+

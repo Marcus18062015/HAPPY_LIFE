@@ -1,4 +1,4 @@
-import "server-only";
+﻿import "server-only";
 import { DatabaseSync } from "node:sqlite";
 import path from "node:path";
 import fs from "node:fs";
@@ -171,7 +171,85 @@ export function initSchema() {
     CREATE INDEX IF NOT EXISTS idx_favoris_proprietaires_visiteur ON favoris_proprietaires(visiteur_id);
     CREATE INDEX IF NOT EXISTS idx_favoris_proprietaires_owner ON favoris_proprietaires(owner_id);
     CREATE INDEX IF NOT EXISTS idx_promotions_fiche ON promotions(fiche_id);
+
+    -- Espace communautaire : les clients s'inscrivent séparément des comptes
+    -- propriétaire/admin (téléphone, WhatsApp ou email + mot de passe),
+    -- confirment leur compte avec un code à usage unique, puis peuvent
+    -- publier des photos sur un mur commun (commentaires publics) et
+    -- s'écrire en privé. Tant qu'aucun fournisseur SMS/WhatsApp n'est
+    -- configuré (voir src/lib/sms.ts), le code de vérification est affiché
+    -- directement à l'écran au lieu d'être réellement envoyé — voir
+    -- src/lib/actions/community.ts.
+    CREATE TABLE IF NOT EXISTS community_members (
+      id TEXT PRIMARY KEY,
+      nom TEXT NOT NULL,
+      telephone TEXT,
+      whatsapp TEXT,
+      email TEXT,
+      password_hash TEXT NOT NULL,
+      avatar TEXT,
+      verifie INTEGER NOT NULL DEFAULT 0,
+      code_verification TEXT,
+      code_expire_at TEXT,
+      created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      CHECK (telephone IS NOT NULL OR whatsapp IS NOT NULL OR email IS NOT NULL)
+    );
+
+    CREATE UNIQUE INDEX IF NOT EXISTS idx_community_members_telephone
+      ON community_members(telephone) WHERE telephone IS NOT NULL;
+    CREATE UNIQUE INDEX IF NOT EXISTS idx_community_members_whatsapp
+      ON community_members(whatsapp) WHERE whatsapp IS NOT NULL;
+    CREATE UNIQUE INDEX IF NOT EXISTS idx_community_members_email
+      ON community_members(email) WHERE email IS NOT NULL;
+
+    -- Mur communautaire : une publication = une photo (le filigrane Happy
+    -- Life n'est jamais appliqué à ce fichier d'origine, seulement à la
+    -- copie générée à la volée quand un membre la partage vers l'extérieur,
+    -- voir src/app/api/communaute/partage/[postId]/route.ts).
+    CREATE TABLE IF NOT EXISTS community_posts (
+      id TEXT PRIMARY KEY,
+      auteur_id TEXT NOT NULL REFERENCES community_members(id) ON DELETE CASCADE,
+      photo TEXT NOT NULL,
+      legende TEXT NOT NULL DEFAULT '',
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    CREATE TABLE IF NOT EXISTS community_comments (
+      id TEXT PRIMARY KEY,
+      post_id TEXT NOT NULL REFERENCES community_posts(id) ON DELETE CASCADE,
+      auteur_id TEXT NOT NULL REFERENCES community_members(id) ON DELETE CASCADE,
+      texte TEXT NOT NULL,
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    -- Messagerie privée 1-à-1. membre_1_id est toujours l'id le plus petit
+    -- des deux (ordre canonique appliqué dans src/lib/community.ts) pour
+    -- garantir qu'une seule conversation existe par paire de membres.
+    CREATE TABLE IF NOT EXISTS community_conversations (
+      id TEXT PRIMARY KEY,
+      membre_1_id TEXT NOT NULL REFERENCES community_members(id) ON DELETE CASCADE,
+      membre_2_id TEXT NOT NULL REFERENCES community_members(id) ON DELETE CASCADE,
+      created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      UNIQUE (membre_1_id, membre_2_id)
+    );
+
+    CREATE TABLE IF NOT EXISTS community_messages (
+      id TEXT PRIMARY KEY,
+      conversation_id TEXT NOT NULL REFERENCES community_conversations(id) ON DELETE CASCADE,
+      expediteur_id TEXT NOT NULL REFERENCES community_members(id) ON DELETE CASCADE,
+      texte TEXT NOT NULL,
+      lu INTEGER NOT NULL DEFAULT 0,
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_community_posts_auteur ON community_posts(auteur_id);
+    CREATE INDEX IF NOT EXISTS idx_community_posts_created ON community_posts(created_at);
+    CREATE INDEX IF NOT EXISTS idx_community_comments_post ON community_comments(post_id);
+    CREATE INDEX IF NOT EXISTS idx_community_conversations_membre1 ON community_conversations(membre_1_id);
+    CREATE INDEX IF NOT EXISTS idx_community_conversations_membre2 ON community_conversations(membre_2_id);
+    CREATE INDEX IF NOT EXISTS idx_community_messages_conversation ON community_messages(conversation_id);
   `);
 }
 
 initSchema();
+
