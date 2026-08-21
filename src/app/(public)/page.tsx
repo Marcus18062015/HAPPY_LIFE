@@ -52,7 +52,7 @@ export default async function HomePage() {
         coverImage="/hero-photo.jpg"
         coverSlides={SPLASH_SLIDES}
         coverIntervalMs={2250}
-        tallCover
+        overlayContent
         priority
         avatar={
           <LogoMark size={72} className="drop-shadow-[0_8px_20px_rgba(4,20,28,0.55)]" />
@@ -386,3 +386,4 @@ function EmptyState({ label }: { label: string }) {
     </div>
   );
 }
+

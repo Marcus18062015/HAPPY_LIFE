@@ -3,9 +3,12 @@ Dossier utilisÇ comme racine du projet :
   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE
 ==================================================
 
+-> src\app\(public)\page.tsx
+   OK - contenu vÇrifiÇ sur le disque.
 -> src\components\ProfileHero.tsx
    OK - contenu vÇrifiÇ sur le disque.
 
 ==================================================
-TERMINê. Copiez TOUT le texte affichÇ ci-dessus et envoyez-le si un probläme persiste.
+TERMINê - les deux fichiers sont corrects sur le disque.
+Copiez TOUT le texte affichÇ ci-dessus et envoyez-le si un probläme persiste.
 ==================================================

@@ -24,9 +24,8 @@ export default function ProfileHero({
   // vers le bas — le reste du bandeau garde les photos bien visibles.
   tallCover = false,
   // Si activé, le bloc avatar/titre/stats/boutons se superpose en haut à
-  // gauche de la photo (fond transparent, juste une ombre portée pour
-  // rester lisible), au lieu d'être affiché en dessous. `children`
-  // continue de s'afficher sous la photo.
+  // gauche de la photo (dans un panneau semi-transparent), au lieu d'être
+  // affiché en dessous. `children` continue de s'afficher sous la photo.
   overlayContent = false,
   avatar,
   title,
@@ -196,3 +195,4 @@ export function HeroPillButton({
     </button>
   );
 }
+
