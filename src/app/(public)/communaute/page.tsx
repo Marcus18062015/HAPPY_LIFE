@@ -1,9 +1,10 @@
 ﻿import Link from "next/link";
 import { getCommunitySession } from "@/lib/communityAuth";
+import { logoutCommunityAction } from "@/lib/actions/community";
 import { listPosts, listComments } from "@/lib/community";
 import CommunityPostForm from "@/components/forms/CommunityPostForm";
 import CommunityPostCard from "@/components/CommunityPostCard";
-import { ChatIcon } from "@/components/icons";
+import { ChatIcon, LogoutIcon } from "@/components/icons";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Communauté — Happy Life" };
@@ -28,13 +29,27 @@ export default async function CommunityPage({
           </p>
         </div>
         {session && (
-          <Link
-            href="/communaute/messages"
-            aria-label="Mes messages"
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-slate-500 card-shadow ring-1 ring-slate-100 hover:text-brand-teal"
-          >
-            <ChatIcon className="h-5 w-5" />
-          </Link>
+          <div className="flex items-center gap-2">
+            <span className="hidden max-w-[120px] truncate text-xs text-slate-400 sm:block">
+              Bonjour, {session.nom}
+            </span>
+            <Link
+              href="/communaute/messages"
+              aria-label="Mes messages"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-slate-500 card-shadow ring-1 ring-slate-100 hover:text-brand-teal"
+            >
+              <ChatIcon className="h-5 w-5" />
+            </Link>
+            <form action={logoutCommunityAction}>
+              <button
+                type="submit"
+                aria-label="Se déconnecter"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-slate-500 card-shadow ring-1 ring-slate-100 hover:text-rose-600"
+              >
+                <LogoutIcon className="h-5 w-5" />
+              </button>
+            </form>
+          </div>
         )}
       </div>
 
@@ -95,4 +110,3 @@ export default async function CommunityPage({
     </div>
   );
 }
-

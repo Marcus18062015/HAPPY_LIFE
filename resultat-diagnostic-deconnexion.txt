@@ -1,0 +1,14 @@
+==================================================
+Bouton deconnexion communaute - VERSION 1
+Dossier utilise comme racine du projet :
+  C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE
+==================================================
+
+-> src\components\icons.tsx
+   OK
+-> src\app\(public)\communaute\page.tsx
+   OK
+
+==================================================
+TERMINE - 2 / 2 fichiers corrects sur le disque.
+==================================================

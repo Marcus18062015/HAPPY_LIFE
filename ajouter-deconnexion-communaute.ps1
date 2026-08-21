@@ -1,4 +1,72 @@
-﻿type IconProps = { className?: string };
+﻿$ErrorActionPreference = "Stop"
+
+$racine = $PSScriptRoot
+if (-not (Test-Path (Join-Path $racine "package.json"))) {
+    $racine = "C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE"
+}
+
+Write-Host "=================================================="
+Write-Host "Bouton deconnexion communaute - VERSION 1"
+Write-Host "Dossier utilise comme racine du projet :"
+Write-Host "  $racine"
+Write-Host "=================================================="
+Write-Host ""
+
+if (-not (Test-Path (Join-Path $racine "package.json"))) {
+    Write-Host "ERREUR : impossible de trouver package.json dans ce dossier." -ForegroundColor Red
+    Write-Host "Ce script doit etre lance depuis (ou copie dans) le dossier HAPPY_LIFE."
+    exit 1
+}
+
+$resultats = @{}
+
+function Ecrire-Fichier {
+    param(
+        [string]$CheminRelatif,
+        [string]$Contenu,
+        [string]$SignatureAttendue
+    )
+
+    $chemin = Join-Path $racine $CheminRelatif
+    $dossier = Split-Path -Path $chemin -Parent
+
+    if (-not (Test-Path -LiteralPath $dossier)) {
+        [System.IO.Directory]::CreateDirectory($dossier) | Out-Null
+    }
+
+    if (Test-Path -LiteralPath $chemin) {
+        try {
+            $item = Get-Item -LiteralPath $chemin -Force
+            if ($item.IsReadOnly) {
+                Set-ItemProperty -LiteralPath $chemin -Name IsReadOnly -Value $false
+            }
+        } catch {
+            Write-Host "   Avertissement attributs : $_" -ForegroundColor Yellow
+        }
+    }
+
+    Write-Host "-> $CheminRelatif"
+    try {
+        Set-Content -LiteralPath $chemin -Value $Contenu -Encoding UTF8 -Force
+    } catch {
+        Write-Host "   *** ECHEC DE L'ECRITURE : $_" -ForegroundColor Red
+        Write-Host "   (le fichier est peut-etre ouvert dans un autre programme - fermez-le et relancez le script)" -ForegroundColor Red
+        return $false
+    }
+
+    Start-Sleep -Milliseconds 120
+    $verif = Get-Content -LiteralPath $chemin -Raw -ErrorAction SilentlyContinue
+    if ($verif -and $verif.Contains($SignatureAttendue)) {
+        Write-Host "   OK" -ForegroundColor Green
+        return $true
+    } else {
+        Write-Host "   *** ECHEC DE LA VERIFICATION (contenu inattendu apres ecriture) ***" -ForegroundColor Red
+        return $false
+    }
+}
+
+$f0 = @'
+type IconProps = { className?: string };
 
 const base = "none";
 
@@ -261,3 +329,128 @@ export function LogoutIcon({ className = "h-5 w-5" }: IconProps) {
     </svg>
   );
 }
+'@
+$f1 = @'
+import Link from "next/link";
+import { getCommunitySession } from "@/lib/communityAuth";
+import { logoutCommunityAction } from "@/lib/actions/community";
+import { listPosts, listComments } from "@/lib/community";
+import CommunityPostForm from "@/components/forms/CommunityPostForm";
+import CommunityPostCard from "@/components/CommunityPostCard";
+import { ChatIcon, LogoutIcon } from "@/components/icons";
+
+export const dynamic = "force-dynamic";
+export const metadata = { title: "Communauté — Happy Life" };
+
+export default async function CommunityPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ bienvenue?: string; publie?: string }>;
+}) {
+  const params = await searchParams;
+  const session = await getCommunitySession();
+  const posts = listPosts();
+  const commentsByPost = Object.fromEntries(posts.map((p) => [p.id, listComments(p.id)]));
+
+  return (
+    <div className="mx-auto max-w-2xl px-4 py-8 sm:px-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900">Communauté</h1>
+          <p className="mt-1 text-sm text-slate-500">
+            Photos et discussions entre membres Happy Life.
+          </p>
+        </div>
+        {session && (
+          <div className="flex items-center gap-2">
+            <span className="hidden max-w-[120px] truncate text-xs text-slate-400 sm:block">
+              Bonjour, {session.nom}
+            </span>
+            <Link
+              href="/communaute/messages"
+              aria-label="Mes messages"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-slate-500 card-shadow ring-1 ring-slate-100 hover:text-brand-teal"
+            >
+              <ChatIcon className="h-5 w-5" />
+            </Link>
+            <form action={logoutCommunityAction}>
+              <button
+                type="submit"
+                aria-label="Se déconnecter"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-slate-500 card-shadow ring-1 ring-slate-100 hover:text-rose-600"
+              >
+                <LogoutIcon className="h-5 w-5" />
+              </button>
+            </form>
+          </div>
+        )}
+      </div>
+
+      {params.bienvenue === "1" && (
+        <p className="mt-4 rounded-xl bg-brand-teal/10 px-4 py-3 text-sm text-brand-deep ring-1 ring-brand-teal/30">
+          Bienvenue dans la communauté Happy Life ✓
+        </p>
+      )}
+      {params.publie === "1" && (
+        <p className="mt-4 rounded-xl bg-brand-teal/10 px-4 py-3 text-sm text-brand-deep ring-1 ring-brand-teal/30">
+          Publication envoyée ✓
+        </p>
+      )}
+
+      <div className="mt-6">
+        {session ? (
+          <CommunityPostForm />
+        ) : (
+          <div className="rounded-2xl bg-white p-5 text-center card-shadow ring-1 ring-slate-100">
+            <p className="text-sm text-slate-600">
+              Rejoignez la communauté pour publier des photos et discuter avec les autres
+              membres.
+            </p>
+            <div className="mt-3 flex justify-center gap-2.5">
+              <Link
+                href="/communaute/inscription"
+                className="rounded-full brand-gradient px-5 py-2 text-sm font-semibold text-white hover:opacity-90"
+              >
+                Rejoindre
+              </Link>
+              <Link
+                href="/communaute/connexion"
+                className="rounded-full bg-slate-100 px-5 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-200"
+              >
+                Se connecter
+              </Link>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className="mt-6 space-y-5">
+        {posts.length === 0 ? (
+          <div className="rounded-2xl border border-dashed border-slate-200 bg-white p-10 text-center text-sm text-slate-400">
+            Aucune publication pour le moment — soyez le premier à partager une photo !
+          </div>
+        ) : (
+          posts.map((post) => (
+            <CommunityPostCard
+              key={post.id}
+              post={post}
+              comments={commentsByPost[post.id] || []}
+              currentMemberId={session?.sub ?? null}
+            />
+          ))
+        )}
+      </div>
+    </div>
+  );
+}
+'@
+
+$resultats["src\components\icons.tsx"] = Ecrire-Fichier -CheminRelatif "src\components\icons.tsx" -Contenu $f0 -SignatureAttendue "LogoutIcon"
+$resultats["src\app\(public)\communaute\page.tsx"] = Ecrire-Fichier -CheminRelatif "src\app\(public)\communaute\page.tsx" -Contenu $f1 -SignatureAttendue "Se déconnecter"
+
+Write-Host ""
+Write-Host "=================================================="
+$total = $resultats.Count
+$ok = ($resultats.Values | Where-Object { $_ -eq $true }).Count
+Write-Host "TERMINE - $ok / $total fichiers corrects sur le disque."
+Write-Host "=================================================="
