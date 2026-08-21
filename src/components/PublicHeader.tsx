@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import Logo from "./Logo";
 import MobileMenu from "./MobileMenu";
 import { BellIcon } from "./icons";
@@ -20,6 +20,9 @@ export default function PublicHeader() {
           </Link>
           <Link href="/recherche" className="hover:text-brand-deep">
             Rechercher
+          </Link>
+          <Link href="/communaute" className="hover:text-brand-deep">
+            Communauté
           </Link>
           <Link href="/a-propos" className="hover:text-brand-deep">
             À propos

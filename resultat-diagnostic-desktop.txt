@@ -1,0 +1,14 @@
+==================================================
+Ajout du lien Communaute au menu desktop/tablette
+Dossier utilise comme racine du projet :
+  C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE
+==================================================
+
+-> src\components\PublicHeader.tsx
+   OK
+-> src\components\MobileMenu.tsx
+   OK
+
+==================================================
+TERMINE - 2 / 2 fichiers corrects sur le disque.
+==================================================

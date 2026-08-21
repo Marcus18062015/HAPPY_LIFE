@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
@@ -13,6 +13,7 @@ const LINKS = [
   { href: "/recherche", label: "Rechercher" },
   { href: "/favoris", label: "Mes favoris" },
   { href: "/mes-reservations", label: "Mes réservations" },
+  { href: "/communaute", label: "Communauté" },
   { href: "/a-propos", label: "À propos de Happy Life" },
 ];
 
