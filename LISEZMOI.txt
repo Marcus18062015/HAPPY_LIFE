@@ -1,57 +1,38 @@
-ESPACE COMMUNAUTAIRE — HAPPY LIFE
+MOT DE PASSE OUBLIE — HAPPY LIFE
 ==================================
 
-Ce script ajoute le nouvel espace communautaire à votre application :
-inscription des clients (téléphone, WhatsApp ou email + mot de passe),
-mur de photos avec commentaires publics, messagerie privée entre membres,
-et un bouton "Partager" qui ajoute automatiquement le logo Happy Life en
-filigrane sur la photo partagée en dehors de l'application.
+Ce script ajoute la fonction "Mot de passe oublié ?" aux deux espaces de
+connexion : l'espace communauté (/communaute/connexion) et l'espace
+propriétaire (/proprietaire/connexion).
 
 INSTALLATION
 ------------
 1. Dézippez ce fichier.
-2. Copiez "1-Ajouter-espace-communaute.bat" et
-   "ajouter-espace-communaute.ps1" dans votre dossier HAPPY_LIFE (à côté de
-   package.json).
-3. Double-cliquez sur "1-Ajouter-espace-communaute.bat".
-4. Envoyez-moi le résultat affiché (25 fichiers doivent afficher "OK").
-5. Committez et poussez depuis GitHub Desktop comme d'habitude, puis
+2. Copiez "3-Ajouter-mot-de-passe-oublie.bat" et
+   "ajouter-mot-de-passe-oublie.ps1" dans votre dossier HAPPY_LIFE (à côté
+   de package.json — le même dossier que la dernière fois :
+   C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE).
+3. Double-cliquez sur "3-Ajouter-mot-de-passe-oublie.bat".
+4. Vérifiez que la première ligne affichée est bien "VERSION 1" et que les
+   18 fichiers affichent "OK".
+5. Envoyez-moi le résultat affiché.
+6. Committez et poussez depuis GitHub Desktop comme d'habitude, puis
    dites-moi de redéployer.
 
-POINTS IMPORTANTS
+COMMENT ÇA MARCHE
 ------------------
-• Code de vérification à l'inscription : aucun fournisseur SMS/WhatsApp
-  n'est encore branché sur Happy Life (comme pour les rappels d'abonnement
-  propriétaire). En attendant, le code à 6 chiffres s'affiche directement à
-  l'écran après l'inscription — l'inscription est donc testable dès
-  maintenant. Le jour où vous créez un compte chez un fournisseur SMS/
-  WhatsApp (Twilio ou équivalent), je peux brancher l'envoi réel en
-  quelques minutes.
+• Sur la page de connexion (communauté ou propriétaire), un lien
+  "Mot de passe oublié ?" apparaît à côté du champ mot de passe.
+• Comme aucun fournisseur SMS/WhatsApp/email n'est encore branché sur
+  Happy Life, le code de réinitialisation à 6 chiffres s'affiche
+  directement à l'écran, exactement comme pour l'inscription à la
+  communauté — donc testable dès maintenant.
+• Une fois le code saisi avec le nouveau mot de passe (deux fois, pour
+  confirmation), le mot de passe est mis à jour et vous êtes ramené vers
+  la page de connexion avec un message de confirmation.
+• Le jour où vous créez un compte chez un fournisseur SMS/WhatsApp/email,
+  je peux brancher l'envoi réel en quelques minutes — aucune autre partie
+  de l'application n'a besoin de changer.
 
-• .gitignore : le script ne touche PAS ce fichier (pour éviter tout risque
-  d'encodage). Vous pouvez, si vous le souhaitez, ajouter vous-même une
-  ligne "data/uploads/" juste après la ligne "data/*.db" — cela évite
-  d'envoyer sur GitHub les photos que vous publierez en testant. Ce n'est
-  pas obligatoire pour que l'application fonctionne.
-
-• Stockage des photos : comme le reste de l'application sur l'offre
-  gratuite Render, les photos publiées dans la communauté ne sont pas
-  conservées indéfiniment — un redéploiement réinitialise le disque
-  (c'est déjà le cas aujourd'hui pour les fiches piscines/appartements,
-  rien de nouveau ici).
-
-• Filigrane : la photo d'origine affichée sur le mur n'a jamais de
-  filigrane. Le logo Happy Life n'est ajouté que sur la copie générée au
-  moment où un membre clique sur "Partager" (ex : vers WhatsApp).
-
-NOUVELLES PAGES
-----------------
-  /communaute                         Mur (photos, commentaires, publier)
-  /communaute/inscription             Créer un compte communauté
-  /communaute/inscription/verification  Saisir le code reçu
-  /communaute/connexion               Se connecter
-  /communaute/messages                Liste des conversations privées
-  /communaute/messages/<id>           Une conversation
-
-Un nouvel onglet "Communauté" a été ajouté à la barre de navigation en bas
-de l'écran (entre Réservations et Favoris).
+Testé de bout en bout (inscription, demande de code, réinitialisation,
+connexion avec le nouveau mot de passe) sur les deux espaces avant envoi.

@@ -34,6 +34,8 @@ export function initSchema() {
       email TEXT NOT NULL UNIQUE,
       telephone TEXT,
       password_hash TEXT NOT NULL,
+      reset_code TEXT,
+      reset_code_expire_at TEXT,
       statut TEXT NOT NULL DEFAULT 'ACTIF' CHECK (statut IN ('EN_ATTENTE','ACTIF','SUSPENDU')),
       created_at TEXT NOT NULL DEFAULT (datetime('now'))
     );
@@ -249,7 +251,23 @@ export function initSchema() {
     CREATE INDEX IF NOT EXISTS idx_community_conversations_membre2 ON community_conversations(membre_2_id);
     CREATE INDEX IF NOT EXISTS idx_community_messages_conversation ON community_messages(conversation_id);
   `);
+
+  // "Mot de passe oublié" (propriétaire/admin) ajouté après la création
+  // initiale de la table `users` : CREATE TABLE IF NOT EXISTS ne modifie pas
+  // un schéma déjà existant, donc ces colonnes doivent être ajoutées ici pour
+  // les bases déjà présentes sur disque (utile en local — sur Render, le
+  // disque est réinitialisé et reseedé à chaque déploiement, voir
+  // render.yaml, donc CREATE TABLE ci-dessus suffit déjà).
+  for (const statement of [
+    `ALTER TABLE users ADD COLUMN reset_code TEXT`,
+    `ALTER TABLE users ADD COLUMN reset_code_expire_at TEXT`,
+  ]) {
+    try {
+      db.exec(statement);
+    } catch {
+      // Colonne déjà présente — rien à faire.
+    }
+  }
 }
 
 initSchema();
-

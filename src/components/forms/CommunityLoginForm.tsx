@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import { useActionState } from "react";
+import Link from "next/link";
 import { loginCommunityAction } from "@/lib/actions/community";
 import SubmitButton from "../SubmitButton";
 
@@ -19,7 +20,12 @@ export default function CommunityLoginForm() {
         />
       </div>
       <div>
-        <label className="block text-sm font-medium text-slate-700">Mot de passe</label>
+        <div className="flex items-center justify-between">
+          <label className="block text-sm font-medium text-slate-700">Mot de passe</label>
+          <Link href="/communaute/mot-de-passe-oublie" className="text-xs font-medium text-brand-teal">
+            Mot de passe oublié ?
+          </Link>
+        </div>
         <input
           name="password"
           type="password"
@@ -34,4 +40,3 @@ export default function CommunityLoginForm() {
     </form>
   );
 }
-

@@ -113,6 +113,33 @@ export function setMemberAvatar(id: string, avatar: string) {
   db.prepare(`UPDATE community_members SET avatar = ? WHERE id = ?`).run(avatar, id);
 }
 
+// "Mot de passe oublié" : réutilise volontairement les mêmes colonnes
+// (code_verification / code_expire_at) que la vérification d'inscription —
+// `regenererCode` ci-dessus génère déjà un nouveau code sur ces colonnes,
+// quel que soit l'état "verifie" du membre. Il suffit ici de vérifier ce
+// code puis de remplacer le mot de passe au lieu de marquer le compte
+// vérifié.
+export function reinitialiserMotDePasseMembre(
+  id: string,
+  code: string,
+  nouveauPasswordHash: string
+): VerificationResultat {
+  const membre = getMemberById(id);
+  if (!membre) return "CODE_INCORRECT";
+  if (!membre.code_verification || membre.code_verification !== code.trim()) {
+    return "CODE_INCORRECT";
+  }
+  if (!membre.code_expire_at || new Date(membre.code_expire_at).getTime() < Date.now()) {
+    return "CODE_EXPIRE";
+  }
+  db.prepare(
+    `UPDATE community_members
+     SET password_hash = ?, code_verification = NULL, code_expire_at = NULL
+     WHERE id = ?`
+  ).run(nouveauPasswordHash, id);
+  return "OK";
+}
+
 // ---------- Mur communautaire ----------
 
 function hydratePost(r: CommunityPostRecord): CommunityPost {
@@ -282,4 +309,3 @@ export function marquerConversationLue(conversationId: string, lecteurId: string
 }
 
 export { toPublicProfile };
-

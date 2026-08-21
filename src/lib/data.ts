@@ -1,5 +1,5 @@
-import "server-only";
-import { randomUUID } from "node:crypto";
+﻿import "server-only";
+import { randomUUID, randomInt } from "node:crypto";
 import { db } from "./db";
 import { toFiche } from "./types";
 import type {
@@ -76,6 +76,50 @@ export function setUserStatut(id: string, statut: "EN_ATTENTE" | "ACTIF" | "SUSP
 
 export function setUserPassword(id: string, passwordHash: string) {
   db.prepare(`UPDATE users SET password_hash = ? WHERE id = ?`).run(passwordHash, id);
+}
+
+// ---------- Mot de passe oublié (propriétaire / admin) ----------
+//
+// Même principe que l'espace communauté : aucun fournisseur SMS/WhatsApp ni
+// d'envoi d'email n'est encore branché sur Happy Life, donc le code de
+// réinitialisation est affiché directement à l'écran plutôt qu'envoyé — voir
+// src/lib/sms.ts. Durée de validité alignée sur celle de la communauté.
+const RESET_CODE_VALIDITE_MINUTES = 15;
+
+function genererCodeReinitialisation(): string {
+  return String(randomInt(0, 1_000_000)).padStart(6, "0");
+}
+
+export function regenererCodeReinitialisation(id: string): string | null {
+  const user = getUserById(id);
+  if (!user) return null;
+  const code = genererCodeReinitialisation();
+  const expire = new Date(Date.now() + RESET_CODE_VALIDITE_MINUTES * 60_000).toISOString();
+  db.prepare(`UPDATE users SET reset_code = ?, reset_code_expire_at = ? WHERE id = ?`).run(
+    code,
+    expire,
+    id
+  );
+  return code;
+}
+
+export type ReinitialisationResultat = "OK" | "CODE_INCORRECT" | "CODE_EXPIRE";
+
+export function reinitialiserMotDePasseUtilisateur(
+  id: string,
+  code: string,
+  nouveauPasswordHash: string
+): ReinitialisationResultat {
+  const user = getUserById(id);
+  if (!user) return "CODE_INCORRECT";
+  if (!user.reset_code || user.reset_code !== code.trim()) return "CODE_INCORRECT";
+  if (!user.reset_code_expire_at || new Date(user.reset_code_expire_at).getTime() < Date.now()) {
+    return "CODE_EXPIRE";
+  }
+  db.prepare(
+    `UPDATE users SET password_hash = ?, reset_code = NULL, reset_code_expire_at = NULL WHERE id = ?`
+  ).run(nouveauPasswordHash, id);
+  return "OK";
 }
 
 export function countFichesForOwner(ownerId: string): number {

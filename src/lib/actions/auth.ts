@@ -1,4 +1,4 @@
-"use server";
+﻿"use server";
 
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
@@ -9,11 +9,22 @@ import {
   verifyPassword,
   getSession,
 } from "@/lib/auth";
-import { createUser, getUserByEmail, getUserById, setUserPassword } from "@/lib/data";
+import {
+  createUser,
+  getUserByEmail,
+  getUserById,
+  setUserPassword,
+  regenererCodeReinitialisation,
+  reinitialiserMotDePasseUtilisateur,
+} from "@/lib/data";
 
 export type FormState = { error?: string } | undefined;
 
 export type PasswordFormState = { error?: string; success?: boolean } | undefined;
+
+export type ResetPasswordState =
+  | { error?: string; success?: boolean; userId?: string; codeTest?: string }
+  | undefined;
 
 export async function loginProprietaireAction(
   _prev: FormState,
@@ -134,6 +145,66 @@ export async function changePasswordAction(
   setUserPassword(user.id, passwordHash);
 
   return { success: true };
+}
+
+// ---------- Mot de passe oublié (propriétaire) ----------
+
+export async function demanderReinitialisationMotDePasseAction(
+  _prev: ResetPasswordState,
+  formData: FormData
+): Promise<ResetPasswordState> {
+  const email = String(formData.get("email") || "").trim();
+  if (!email) return { error: "Merci de renseigner votre email." };
+
+  const user = getUserByEmail(email);
+  if (!user) {
+    return { error: "Aucun compte ne correspond à cet email." };
+  }
+
+  const code = regenererCodeReinitialisation(user.id);
+  if (!code) return { error: "Compte introuvable." };
+
+  // Aucun fournisseur d'email/SMS n'est encore branché sur Happy Life (voir
+  // src/lib/sms.ts) : le code est retourné directement ici pour rester
+  // testable dès maintenant.
+  return { success: true, userId: user.id, codeTest: code };
+}
+
+export async function renvoyerCodeReinitialisationAction(
+  userId: string
+): Promise<ResetPasswordState> {
+  const code = regenererCodeReinitialisation(userId);
+  if (!code) return { error: "Compte introuvable." };
+  return { success: true, userId, codeTest: code };
+}
+
+export async function reinitialiserMotDePasseAction(
+  _prev: ResetPasswordState,
+  formData: FormData
+): Promise<ResetPasswordState> {
+  const userId = String(formData.get("userId") || "");
+  const code = String(formData.get("code") || "").trim();
+  const nouveauMotDePasse = String(formData.get("nouveauMotDePasse") || "");
+  const confirmation = String(formData.get("confirmation") || "");
+
+  if (!userId || !code) {
+    return { error: "Merci de saisir le code reçu.", userId };
+  }
+  if (nouveauMotDePasse.length < 6) {
+    return { error: "Le nouveau mot de passe doit contenir au moins 6 caractères.", userId };
+  }
+  if (nouveauMotDePasse !== confirmation) {
+    return { error: "La confirmation ne correspond pas au nouveau mot de passe.", userId };
+  }
+
+  const passwordHash = await hashPassword(nouveauMotDePasse);
+  const resultat = reinitialiserMotDePasseUtilisateur(userId, code, passwordHash);
+  if (resultat === "CODE_INCORRECT") return { error: "Code incorrect.", userId };
+  if (resultat === "CODE_EXPIRE") {
+    return { error: "Ce code a expiré. Demandez-en un nouveau.", userId };
+  }
+
+  redirect("/proprietaire/connexion?reinitialise=1");
 }
 
 export async function requireSession(role?: "ADMIN" | "PROPRIETAIRE") {

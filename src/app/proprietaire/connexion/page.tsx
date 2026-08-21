@@ -1,10 +1,10 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import AuthCard from "@/components/AuthCard";
 import OwnerLoginForm from "@/components/forms/OwnerLoginForm";
 
 export const metadata = { title: "Connexion propriétaire — Happy Life" };
 
-type SearchParams = { suspendu?: string; attente?: string; inscrit?: string };
+type SearchParams = { suspendu?: string; attente?: string; inscrit?: string; reinitialise?: string };
 
 export default async function OwnerLoginPage({
   searchParams,
@@ -40,6 +40,11 @@ export default async function OwnerLoginPage({
         <p className="mb-4 rounded-xl bg-brand-teal/10 px-3 py-2.5 text-sm text-brand-deep ring-1 ring-brand-teal/30">
           Compte créé avec succès. Il doit maintenant être validé par
           l&apos;administrateur avant que vous puissiez vous connecter.
+        </p>
+      )}
+      {params.reinitialise === "1" && (
+        <p className="mb-4 rounded-xl bg-brand-teal/10 px-3 py-2.5 text-sm text-brand-deep ring-1 ring-brand-teal/30">
+          Mot de passe réinitialisé avec succès. Vous pouvez vous connecter.
         </p>
       )}
       <OwnerLoginForm />

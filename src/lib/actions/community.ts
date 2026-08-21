@@ -18,6 +18,7 @@ import {
   getMemberById,
   regenererCode,
   verifierCodeMembre,
+  reinitialiserMotDePasseMembre,
   createPost,
   getPostById,
   deletePost,
@@ -125,6 +126,61 @@ export async function loginCommunityAction(
 
   await createCommunitySessionCookie({ sub: membre.id, nom: membre.nom });
   redirect("/communaute");
+}
+
+// ---------- Mot de passe oublié ----------
+
+export async function demanderReinitialisationCommunityAction(
+  _prev: CommunityAuthState,
+  formData: FormData
+): Promise<CommunityAuthState> {
+  const contact = String(formData.get("contact") || "").trim();
+  if (!contact) return { error: "Merci de renseigner votre téléphone, WhatsApp ou email." };
+
+  const membre = getMemberByContact(contact);
+  if (!membre) {
+    return { error: "Aucun compte communauté ne correspond à ce contact." };
+  }
+
+  const code = regenererCode(membre.id);
+  if (!code) return { error: "Compte introuvable." };
+
+  // Même logique que pour l'inscription : aucun fournisseur SMS/WhatsApp
+  // n'est encore branché, le code est donc retourné directement ici pour
+  // rester testable dès maintenant (voir src/lib/sms.ts).
+  return { success: true, membreId: membre.id, codeTest: code };
+}
+
+export async function reinitialiserMotDePasseCommunityAction(
+  _prev: CommunityAuthState,
+  formData: FormData
+): Promise<CommunityAuthState> {
+  const membreId = String(formData.get("membreId") || "");
+  const code = String(formData.get("code") || "").trim();
+  const nouveauMotDePasse = String(formData.get("nouveauMotDePasse") || "");
+  const confirmation = String(formData.get("confirmation") || "");
+
+  if (!membreId || !code) {
+    return { error: "Merci de saisir le code reçu.", membreId };
+  }
+  if (nouveauMotDePasse.length < 6) {
+    return {
+      error: "Le nouveau mot de passe doit contenir au moins 6 caractères.",
+      membreId,
+    };
+  }
+  if (nouveauMotDePasse !== confirmation) {
+    return { error: "La confirmation ne correspond pas au nouveau mot de passe.", membreId };
+  }
+
+  const passwordHash = await hashPassword(nouveauMotDePasse);
+  const resultat = reinitialiserMotDePasseMembre(membreId, code, passwordHash);
+  if (resultat === "CODE_INCORRECT") return { error: "Code incorrect.", membreId };
+  if (resultat === "CODE_EXPIRE") {
+    return { error: "Ce code a expiré. Demandez-en un nouveau.", membreId };
+  }
+
+  redirect("/communaute/connexion?reinitialise=1");
 }
 
 export async function logoutCommunityAction() {
@@ -244,4 +300,3 @@ export async function marquerLuAction(conversationId: string) {
   marquerConversationLue(conversationId, session.sub);
   revalidatePath("/communaute/messages");
 }
-

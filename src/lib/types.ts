@@ -12,6 +12,8 @@ export interface UserRecord {
   email: string;
   telephone: string | null;
   password_hash: string;
+  reset_code: string | null;
+  reset_code_expire_at: string | null;
   statut: StatutCompte;
   created_at: string;
 }
@@ -233,4 +235,3 @@ export interface CommunityMessageRecord {
   lu: number; // 0 | 1
   created_at: string;
 }
-

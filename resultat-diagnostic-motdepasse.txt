@@ -1,0 +1,46 @@
+==================================================
+Mot de passe oublie (communaute + proprietaire) - VERSION 1
+Dossier utilise comme racine du projet :
+  C:\Users\Marc\Desktop\Fichiers\HAPPY_PISCINE\HAPPY_LIFE
+==================================================
+
+-> src\lib\types.ts
+   OK
+-> src\lib\db.ts
+   OK
+-> src\lib\community.ts
+   OK
+-> src\lib\actions\community.ts
+   OK
+-> src\lib\data.ts
+   OK
+-> src\lib\actions\auth.ts
+   OK
+-> src\components\forms\CommunityLoginForm.tsx
+   OK
+-> src\components\forms\OwnerLoginForm.tsx
+   OK
+-> src\app\(public)\communaute\connexion\page.tsx
+   OK
+-> src\app\proprietaire\connexion\page.tsx
+   OK
+-> src\components\forms\CommunityForgotPasswordForm.tsx
+   OK
+-> src\components\forms\CommunityResetPasswordForm.tsx
+   OK
+-> src\app\(public)\communaute\mot-de-passe-oublie\page.tsx
+   OK
+-> src\app\(public)\communaute\mot-de-passe-oublie\reinitialiser\page.tsx
+   OK
+-> src\components\forms\OwnerForgotPasswordForm.tsx
+   OK
+-> src\components\forms\OwnerResetPasswordForm.tsx
+   OK
+-> src\app\proprietaire\mot-de-passe-oublie\page.tsx
+   OK
+-> src\app\proprietaire\mot-de-passe-oublie\reinitialiser\page.tsx
+   OK
+
+==================================================
+TERMINE - 18 / 18 fichiers corrects sur le disque.
+==================================================
